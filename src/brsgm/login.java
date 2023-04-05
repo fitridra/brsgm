@@ -156,13 +156,12 @@ public class login extends javax.swing.JFrame {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-//                    from_barangA fit = new from_barangA();
-//                    fit.setVisible(true);
-//                    fit.pack();
-//                    fit.setLocationRelativeTo(null);
-//                    
-//                    this.dispose();
-                JOptionPane.showMessageDialog(this, "Login Berhasil");
+                form_barang rsgm = new form_barang();
+                rsgm.setVisible(true);
+                rsgm.pack();
+                rsgm.setLocationRelativeTo(null);
+                    
+                    this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
             }
