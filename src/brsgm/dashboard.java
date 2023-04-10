@@ -25,17 +25,15 @@ public class dashboard extends javax.swing.JFrame {
     /**
      * Creates new form dashboard
      */
-    
     brsgm.conn koneksi = new brsgm.conn();
     brsgm.session sesi = new brsgm.session();
-    
-    
+
     public dashboard() {
-        ImageIcon img = new ImageIcon("src/inventori_barang/img/icon.png");
+        ImageIcon img = new ImageIcon("src/brsgm/img/icon.png");
         this.setIconImage(img.getImage());
         initComponents();
-        initUI();        
-        
+        initUI();
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
@@ -43,7 +41,7 @@ public class dashboard extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void windowActivated(WindowEvent e) {
         System.out.println("Window Activated Event");
     }
@@ -52,26 +50,26 @@ public class dashboard extends javax.swing.JFrame {
         System.out.println("Window Deactivated Event");
     }
 
-    private void initUI(){
+    private void initUI() {
         Dimension windowSize = getSize();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Point centerPoint = ge.getCenterPoint();
-        
+
         int dx = centerPoint.x - windowSize.width / 2;
-        int dy = centerPoint.y - windowSize.height / 2;    
+        int dy = centerPoint.y - windowSize.height / 2;
         setLocation(dx, dy);
-        
+
     }
-    
-    public void focusGained(FocusEvent fe){
+
+    public void focusGained(FocusEvent fe) {
         System.out.println("Focus gained in JPanel");
     }
 
-    public void focusLost(FocusEvent fe){
+    public void focusLost(FocusEvent fe) {
         System.out.println("Focus lost in JPanel");
     }
 
-    private void GetData(){
+    private void GetData() {
         try {
             Connection conn = koneksi.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
@@ -94,9 +92,9 @@ public class dashboard extends javax.swing.JFrame {
             Logger.getLogger(form_barang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void GetData_View(){
-        
+
+    private void GetData_View() {
+
     }
 
     /**
@@ -169,10 +167,10 @@ public class dashboard extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(650, Short.MAX_VALUE))
-            .addGroup(dialogBackground2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogBackground2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         dialogBackground2Layout.setVerticalGroup(
             dialogBackground2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,6 +197,11 @@ public class dashboard extends javax.swing.JFrame {
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Data Petugas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -224,15 +227,23 @@ public class dashboard extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        new form_barang(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        new form_barang(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        new form_barang(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        new form_barang(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
