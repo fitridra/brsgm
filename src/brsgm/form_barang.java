@@ -25,16 +25,16 @@ public class form_barang extends javax.swing.JFrame {
     /**
      * Creates new form form_barang
      */
+    
+    brsgm.conn koneksi = new brsgm.conn();
+    
     public form_barang(dashboard parent, boolean modal) {
         initComponents();
         initUI();
         
-        SelectKategori();
-        txttemp_kode.hide();
-        txtid_kategori.hide();
         GetData();
         BtnEnabled(false);
-        btnsave.setText("Simpan");
+        jButton5.setText("Simpan");
     }
     
     private void initUI(){ 
@@ -48,69 +48,44 @@ public class form_barang extends javax.swing.JFrame {
         setLocation(dx, dy);
     }
     
-    private void SelectKategori(){
-        try {
-            Connection conn = konek.openkoneksi();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet rs = stm.executeQuery("SELECT * FROM tmkategori");
-            
-            cmbid_kategori.addItem("Pilih");
-            while(rs.next()){
-                cmbid_kategori.addItem(rs.getString("nama"));
-            }
-            konek.closekoneksi();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error " + e);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     private void TxtEmpty(){
-        txtid.setText("");
-        txtkode.setText("");
-        txtnama.setText("");
-        txtsatuan.setText("");
-        txtstok.setText("");
-        txtid_kategori.setText("");
-        txttemp_kode.setText("");
-        cmbid_kategori.setSelectedItem("Pilih");
+        jTextField1.setText("");
+        jTextField2.setText("");
+        jTextField3.setText("");
+        jTextField4.setText("");
     }
     
     private void BtnEnabled(boolean x){
-        btnedit.setEnabled(x);
-        btndelete.setEnabled(x);
+        jButton2.setEnabled(x);
+        jButton3.setEnabled(x);
     }
     
     private void GetData(){
         try {
-            Connection conn = konek.openkoneksi();
+            Connection conn = koneksi.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet sql = stm.executeQuery("SELECT tmbarang.id, tmbarang.kode, tmbarang.nama, tmkategori.nama as kategori, tmbarang.stok, tmbarang.satuan FROM tmbarang JOIN tmkategori ON tmkategori.id = tmbarang.id_kategori");
-            datatable.setModel(DbUtils.resultSetToTableModel(sql));
-            datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
-            datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
-            datatable.getColumnModel().getColumn(2).setPreferredWidth(90);
-            datatable.getColumnModel().getColumn(3).setPreferredWidth(60);
-            datatable.getColumnModel().getColumn(4).setPreferredWidth(40);
-            datatable.getColumnModel().getColumn(5).setPreferredWidth(25);
+            jTable1.setModel(DbUtils.resultSetToTableModel(sql));
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(7);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(25);
 
             //sql.last();
-            String count_rows = String.valueOf(datatable.getRowCount());
-            lblcount_rows.setText("Jumlah Data : " + count_rows);
-            konek.closekoneksi();
+            String count_rows = String.valueOf(jTable1.getRowCount());
+            jLabel2.setText("Jumlah Data : " + count_rows);
+            koneksi.closekoneksi();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error " + e);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(form_barang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     private void GetData_View(){
-        int row = datatable.getSelectedRow();
-        String row_id = (datatable.getModel().getValueAt(row, 0).toString());
-        txtid.setText(row_id);
-        BtnEnabled(true);
+     
     }
 
     /**
@@ -223,6 +198,11 @@ public class form_barang extends javax.swing.JFrame {
         jLabel7.setText("Stok");
 
         jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setText("jTextField2");
 
@@ -350,6 +330,10 @@ public class form_barang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -414,3 +398,4 @@ public class form_barang extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 
+}
