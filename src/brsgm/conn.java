@@ -3,20 +3,34 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package brsgm;
-import com.mysql.cj.jdbc.Driver;
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
-//Koneksi Database
-public class conn{
-    private Connection conn;
-    public static Connection getConnection()throws SQLException{
-        Object conn = null;
-        if (conn==null){
-            Driver driver = new Driver();
-            conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/brsgm","root","");
+public class conn {
+    public Connection conn;
+    public conn(){}
+
+    public Connection openkoneksi() throws ClassNotFoundException{
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String connURL = "jdbc:mysql://localhost:3306/brsgm?autoReconnect=true&useSSL=false"
+                    + "&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            String user = "root";
+            String password = "";
+            conn = DriverManager.getConnection(connURL, user, password);
+            return conn;
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "Tidak ada koneksi yang terbuka atau salah konfigurasi database.");
+            return null;
         }
-        return (Connection) conn;   
     }
+    
+    public void closekoneksi() throws SQLException{
+        try{
+            if(conn != null){
+                System.out.print("Tutup Koneksi\n");
+            }
+        }catch(Exception ex){
+        }
+    } 
 }

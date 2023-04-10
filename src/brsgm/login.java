@@ -4,12 +4,20 @@
  */
 package brsgm;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import org.mindrot.jbcrypt.BCrypt;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.util.Arrays;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,9 +28,27 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
+    brsgm.conn koneksi = new brsgm.conn();
+    brsgm.session sesi = new brsgm.session();
+
     public login() {
+        ImageIcon img = new ImageIcon("src/brsgm/img/icon.png");
+        this.setIconImage(img.getImage());
+        initComponents();
+        initUI();
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+
+    private void initUI() {
+        getContentPane().setBackground(new Color(245, 245, 245));
+
+        Dimension windowSize = getSize();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Point centerPoint = ge.getCenterPoint();
+        int dx = centerPoint.x - windowSize.width / 2;
+        int dy = centerPoint.y - windowSize.height / 2;
+        setLocation(dx, dy);
     }
 
     /**
@@ -140,33 +166,36 @@ public class login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Tombol Login
-        PreparedStatement ps;
-        ResultSet rs;
-        String uname = jTextField1.getText();
-        String pass = String.valueOf(jPasswordField1.getPassword());
-
-        String query = "SELECT * FROM `tb_user` WHERE `username` =? AND `password` =? ";
+        String row_txtusername = jTextField1.getText();
+        String row_txtpassword = Arrays.toString(jPasswordField1.getPassword());
 
         try {
-            ps = conn.getConnection().prepareStatement(query);
+            Connection conn = koneksi.openkoneksi();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet rsLogin = stm.executeQuery("SELECT * FROM tb_user WHERE username = '" + row_txtusername + "'");
 
-            ps.setString(1, uname);
-            ps.setString(2, pass);
-
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                form_barang rsgm = new form_barang();
-                rsgm.setVisible(true);
-                rsgm.pack();
-                rsgm.setLocationRelativeTo(null);
-                    
+            if (rsLogin.next()) {
+                if (BCrypt.checkpw(row_txtpassword, rsLogin.getString("password"))) {
+                    sesi.setU_username(rsLogin.getString("username"));
+                    sesi.setU_nama(rsLogin.getString("nama"));
+                    new dashboard().setVisible(true);
                     this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username dan password yang Anda masukkan salah. \nSilahkan coba lagi.");
+                    jTextField1.setText("");
+                    jPasswordField1.setText("");
+                    jTextField1.requestFocus();
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Incorrect Username Or Password", "Login Failed", 2);
+                JOptionPane.showMessageDialog(null, "Username dan password yang Anda masukkan salah. \nSilahkan coba lagi.");
+                jTextField1.setText("");
+                jPasswordField1.setText("");
+                jTextField1.requestFocus();
             }
-
-        } catch (SQLException ex) {
+            koneksi.closekoneksi();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
