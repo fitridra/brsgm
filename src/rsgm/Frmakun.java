@@ -274,7 +274,7 @@ public class Frmakun extends javax.swing.JDialog {
                 try {
                     Connection conn = konek.openkoneksi();
                     java.sql.Statement stm = conn.createStatement();
-                    java.sql.ResultSet rsLogin = stm.executeQuery("SELECT * FROM tmpetugas WHERE id = '" + u_id + "'");
+                    java.sql.ResultSet rsLogin = stm.executeQuery("SELECT * FROM tb_petugas WHERE id = '" + u_id + "'");
                     
                     if (rsLogin.next()) {
                         if (BCrypt.checkpw(row_txtpassword_lama, rsLogin.getString("password"))) {
@@ -282,7 +282,7 @@ public class Frmakun extends javax.swing.JDialog {
                                 Connection conn2 = konek.openkoneksi();
                                 java.sql.Statement stm2 = conn2.createStatement();
                                 String hashed_password = BCrypt.hashpw(row_txtpassword, BCrypt.gensalt(10));
-                                stm2.executeUpdate("UPDATE tmpetugas SET password='" + hashed_password + "' WHERE id = '" + u_id + "'");
+                                stm2.executeUpdate("UPDATE tb_petugas SET password='" + hashed_password + "' WHERE id = '" + u_id + "'");
                                 JOptionPane.showMessageDialog(null, "Berhasil mengubah password.");
                                 konek.closekoneksi();
                                 this.setVisible(false);
