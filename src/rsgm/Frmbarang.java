@@ -15,13 +15,15 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import net.proteanit.sql.DbUtils;
 
 /**
  *
  * @author rsgm
  */
-
 public class Frmbarang extends javax.swing.JDialog {
 
     /**
@@ -71,11 +73,32 @@ public class Frmbarang extends javax.swing.JDialog {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet sql = stm.executeQuery("SELECT tb_barang.id_barang, tb_barang.nm_barang, tb_barang.satuan, tb_barang.harga, tb_barang.stok_gudang FROM tb_barang");
+
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
-            datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
-            datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
-            datatable.getColumnModel().getColumn(2).setPreferredWidth(90);
-            datatable.getColumnModel().getColumn(3).setPreferredWidth(60);
+
+            JTableHeader th = datatable.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            TableColumn tc;
+
+            tc = tcm.getColumn(0);
+            tc.setHeaderValue("ID");
+            tc.setPreferredWidth(7);
+
+            tc = tcm.getColumn(1);
+            tc.setHeaderValue("Nama Barang");
+            tc.setPreferredWidth(90);
+            
+            tc = tcm.getColumn(2);
+            tc.setHeaderValue("Satuan");
+            tc.setPreferredWidth(20);
+            
+            tc = tcm.getColumn(3);
+            tc.setHeaderValue("Harga");
+            tc.setPreferredWidth(60);
+            
+            tc = tcm.getColumn(4);
+            tc.setHeaderValue("Stok Barang");
+            th.repaint();
 
             //sql.last();
             String count_rows = String.valueOf(datatable.getRowCount());
@@ -240,9 +263,9 @@ public class Frmbarang extends javax.swing.JDialog {
                     .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtstok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtstok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(37, 37, 37)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsave)
@@ -426,7 +449,7 @@ public class Frmbarang extends javax.swing.JDialog {
                 java.sql.Statement stm = conn.createStatement();
                 java.sql.ResultSet sql = stm.executeQuery("SELECT tb_barang.id_barang, tb_barang.nm_barang, tb_barang.satuan, tb_barang.harga, tb_barang.stok_gudang FROM tb_barang");
                 if (sql.next()) {
-                    lbl_action.setForeground(new Color(4,149,56));
+                    lbl_action.setForeground(new Color(4, 149, 56));
                     lbl_action.setText("Edit Data");
                     txtid.setText(sql.getString("id_barang"));
                     txtnama.setText(sql.getString("nm_barang"));
@@ -675,4 +698,8 @@ public class Frmbarang extends javax.swing.JDialog {
     private javax.swing.JTextField txtsatuan;
     private javax.swing.JTextField txtstok;
     // End of variables declaration//GEN-END:variables
+
+    private void setPreferredWidth(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
