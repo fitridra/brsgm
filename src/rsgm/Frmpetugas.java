@@ -17,6 +17,9 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import net.proteanit.sql.DbUtils;
 /**
  *
@@ -26,7 +29,7 @@ import net.proteanit.sql.DbUtils;
 public class Frmpetugas extends javax.swing.JDialog {
 
     /**
-     * Creates new form Frmmaster_barang
+     * Creates new form Frmpetugas
      * @param parent
      * @param modal
      */
@@ -59,9 +62,10 @@ public class Frmpetugas extends javax.swing.JDialog {
         txtid.setText("");
         txtnama.setText("");
         txtusername.setText("");
+        txtruangan.setText("");
         txtpassword.setText("");
         txtcpassword.setText("");
-        txtstatus.setSelectedItem("aktif");
+        txtrole.setSelectedItem("petugas");
         txttemp_username.setText("");
     }
     
@@ -74,12 +78,32 @@ public class Frmpetugas extends javax.swing.JDialog {
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT tmpetugas.id, tmpetugas.nama, tmpetugas.username, tmpetugas.status FROM tmpetugas");
+            java.sql.ResultSet sql = stm.executeQuery("SELECT tb_petugas.id, tb_petugas.nama, tb_petugas.username, tb_petugas.role, tb.petugas.ruangan FROM tb_petugas");
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
-            datatable.getColumnModel().getColumn(0).setPreferredWidth(35);
-            datatable.getColumnModel().getColumn(1).setPreferredWidth(100);
-            datatable.getColumnModel().getColumn(2).setPreferredWidth(90);
-            datatable.getColumnModel().getColumn(3).setPreferredWidth(80);
+            
+            JTableHeader th = datatable.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            TableColumn tc;
+
+            tc = tcm.getColumn(0);
+            tc.setHeaderValue("ID");
+            tc.setPreferredWidth(35);
+
+            tc = tcm.getColumn(1);
+            tc.setHeaderValue("Nama Petugas");
+            tc.setPreferredWidth(100);
+            
+            tc = tcm.getColumn(2);
+            tc.setHeaderValue("Username");
+            tc.setPreferredWidth(90);
+            
+            tc = tcm.getColumn(3);
+            tc.setHeaderValue("Ruangan");
+            tc.setPreferredWidth(80);
+            
+            tc = tcm.getColumn(4);
+            tc.setHeaderValue("Role");
+            th.repaint();
 
             //sql.last();
             String count_rows = String.valueOf(datatable.getRowCount());
@@ -111,6 +135,8 @@ public class Frmpetugas extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         btnedit = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -121,10 +147,12 @@ public class Frmpetugas extends javax.swing.JDialog {
         txtusername = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btncancel = new javax.swing.JButton();
-        txtstatus = new javax.swing.JComboBox<>();
+        txtrole = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txtcpassword = new javax.swing.JPasswordField();
         txtpassword = new javax.swing.JPasswordField();
+        jLabel11 = new javax.swing.JLabel();
+        txtruangan = new javax.swing.JTextField();
         txttemp_username = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         datatable = new javax.swing.JTable(){
@@ -143,6 +171,11 @@ public class Frmpetugas extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         lblcount_rows = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+
+        jLabel9.setText("jLabel9");
+
+        jLabel10.setLabelFor(txtrole);
+        jLabel10.setText("Role");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Inventori Barang :: Data Petugas");
@@ -192,8 +225,8 @@ public class Frmpetugas extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setLabelFor(txtstatus);
-        jLabel6.setText("Status");
+        jLabel6.setLabelFor(txtrole);
+        jLabel6.setText("Role");
 
         btncancel.setText("Batal");
         btncancel.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +235,12 @@ public class Frmpetugas extends javax.swing.JDialog {
             }
         });
 
-        txtstatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "aktif", "nonaktif" }));
+        txtrole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "aktif", "nonaktif" }));
+        txtrole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtroleActionPerformed(evt);
+            }
+        });
 
         jLabel3.setLabelFor(txtcpassword);
         jLabel3.setText("Ulangi Password");
@@ -213,6 +251,8 @@ public class Frmpetugas extends javax.swing.JDialog {
             }
         });
 
+        jLabel11.setText("Ruangan");
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -221,24 +261,30 @@ public class Frmpetugas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel11))
+                        .addGap(12, 12, 12)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtpassword, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtrole, javax.swing.GroupLayout.Alignment.TRAILING, 0, 187, Short.MAX_VALUE)
+                            .addComponent(txtcpassword)
+                            .addComponent(txtruangan)))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(0, 68, Short.MAX_VALUE)
                         .addComponent(btncancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelLayout.createSequentialGroup()
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(46, 46, 46)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
-                        .addGap(12, 12, 12)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtusername, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtpassword, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtstatus, javax.swing.GroupLayout.Alignment.TRAILING, 0, 179, Short.MAX_VALUE)
-                            .addComponent(txtcpassword)
+                            .addComponent(txtusername)
                             .addComponent(txtnama))))
                 .addGap(14, 14, 14))
         );
@@ -253,6 +299,10 @@ public class Frmpetugas extends javax.swing.JDialog {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtruangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -263,24 +313,24 @@ public class Frmpetugas extends javax.swing.JDialog {
                     .addComponent(txtcpassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtrole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsave)
                     .addComponent(btncancel))
-                .addGap(508, 508, 508))
+                .addGap(479, 479, 479))
         );
 
         datatable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Kode", "Nama", "Kategori", "Satuan", "Stok"
+                "ID", "Nama", "Username", "Ruangan", "Role"
             }
         ));
         datatable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -425,7 +475,7 @@ public class Frmpetugas extends javax.swing.JDialog {
                                 .addComponent(jLabel5))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txttemp_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -448,15 +498,16 @@ public class Frmpetugas extends javax.swing.JDialog {
                 btnsave.setText("Simpan Perubahan");
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT tmpetugas.id, tmpetugas.nama, tmpetugas.username, tmpetugas.status FROM tmpetugas WHERE tmpetugas.id='"+row_id+"'");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_petugas.id, tb_petugas.nama, tb_petugas.username, tb_petugas.role, tb.petugas.ruangan FROM tb_petugas WHERE tb_petugas.id='"+row_id+"'");
                 if(sql.next()){
-                    lbl_action.setForeground(new Color(43, 152, 240));
+                    lbl_action.setForeground(new Color(4, 149, 56));
                     String kode = sql.getString("username");
                     lbl_action.setText("Edit Data | " + kode);
                     txtid.setText(sql.getString("id"));
                     txtnama.setText(sql.getString("nama"));
+                    txtruangan.setText(sql.getString("ruangan"));
                     txtusername.setText(kode);
-                    txtstatus.setSelectedItem(sql.getString("status"));
+                    txtrole.setSelectedItem(sql.getString("role"));
                     txttemp_username.setText(kode);
                     txtnama.requestFocus();
                 }
@@ -477,6 +528,7 @@ public class Frmpetugas extends javax.swing.JDialog {
         String row_txttemp_username = txttemp_username.getText();
         String row_txtnama = txtnama.getText();
         String row_txtusername = txtusername.getText();
+        String row_txtruangan = txtruangan.getText();
         String row_txtpassword = Arrays.toString(txtpassword.getPassword());
         String row_txtcpassword = Arrays.toString(txtcpassword.getPassword());
         if(!(row_txtpassword.equals(row_txtcpassword))){
@@ -487,17 +539,17 @@ public class Frmpetugas extends javax.swing.JDialog {
         else
         {
             String hashed_password = BCrypt.hashpw(row_txtpassword, BCrypt.gensalt(10));
-            String row_txtstatus = txtstatus.getSelectedItem().toString();
+            String row_txtrole = txtrole.getSelectedItem().toString();
             int c_kode = 0;
             
-            if(!"".equals(row_txtnama) && !"".equals(row_txtusername) && !"".equals(row_txtpassword)){
+            if(!"".equals(row_txtnama) && !"".equals(row_txtusername) && !"".equals(row_txtpassword) && !"".equals(row_txtruangan)){
                 if (txtpassword.getPassword().length == 0 || txtcpassword.getPassword().length == 0) {
                     JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
                 } else {
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        java.sql.ResultSet sql = stm.executeQuery("SELECT COUNT(tmpetugas.id) as count FROM tmpetugas WHERE tmpetugas.username='"+row_txtusername+"'");
+                        java.sql.ResultSet sql = stm.executeQuery("SELECT COUNT(tb_petugas.id) as count FROM tb_petugas WHERE tb_petugas.username='"+row_txtusername+"'");
                         sql.next();
                         c_kode = sql.getInt("count");
                         konek.closekoneksi();
@@ -513,7 +565,7 @@ public class Frmpetugas extends javax.swing.JDialog {
                             try {
                                 Connection conn = konek.openkoneksi();
                                 java.sql.Statement stm = conn.createStatement();
-                                stm.executeUpdate("INSERT INTO tmpetugas(nama, username, password, status) VALUES ('" + row_txtnama + "', '" + row_txtusername + "', '" + hashed_password + "', '" + row_txtstatus + "')");
+                                stm.executeUpdate("INSERT INTO tb_petugas(nama, username, password, role, ruangan) VALUES ('" + row_txtnama + "', '" + row_txtusername + "', '" + hashed_password + "', '" + row_txtrole + "', '" + row_txtruangan + "')");
                                 JOptionPane.showMessageDialog(null, "Berhasil menyimpan data.");
                                 btnadd.doClick();
                                 konek.closekoneksi();
@@ -533,7 +585,7 @@ public class Frmpetugas extends javax.swing.JDialog {
                             try {
                                 Connection conn = konek.openkoneksi();
                                 java.sql.Statement stm = conn.createStatement();
-                                stm.executeUpdate("UPDATE tmpetugas SET nama='" + row_txtnama + "',username='" + row_txtusername + "',password='" + hashed_password + "',status='" + row_txtstatus + "' WHERE id = '" + row_id + "'");
+                                stm.executeUpdate("UPDATE tb_petugas SET nama='" + row_txtnama + "',username='" + row_txtusername + "',password='" + hashed_password + "',role='" + row_txtrole + "',ruangan='" + row_txtruangan + "' WHERE id = '" + row_id + "'");
                                 JOptionPane.showMessageDialog(null, "Berhasil mengubah data.");
                                 btnadd.doClick();
                                 konek.closekoneksi();
@@ -592,7 +644,7 @@ public class Frmpetugas extends javax.swing.JDialog {
                 String row_id = txtid.getText();
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                stm.executeUpdate("DELETE FROM tmpetugas WHERE id = '" + row_id + "'");
+                stm.executeUpdate("DELETE FROM tb_petugas WHERE id = '" + row_id + "'");
                 JOptionPane.showMessageDialog(null, "Berhasil menghapus data.");
                 btnadd.doClick();
                 konek.closekoneksi();
@@ -636,6 +688,10 @@ public class Frmpetugas extends javax.swing.JDialog {
     private void txtcpasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcpasswordKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtcpasswordKeyReleased
+
+    private void txtroleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtroleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtroleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -693,6 +749,8 @@ public class Frmpetugas extends javax.swing.JDialog {
     private javax.swing.JTable datatable;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -700,6 +758,7 @@ public class Frmpetugas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -710,7 +769,8 @@ public class Frmpetugas extends javax.swing.JDialog {
     private javax.swing.JTextPane txtid;
     private javax.swing.JTextField txtnama;
     private javax.swing.JPasswordField txtpassword;
-    private javax.swing.JComboBox<String> txtstatus;
+    private javax.swing.JComboBox<String> txtrole;
+    private javax.swing.JTextField txtruangan;
     private javax.swing.JTextField txttemp_username;
     private javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
