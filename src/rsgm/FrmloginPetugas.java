@@ -175,20 +175,21 @@ public class FrmloginPetugas extends javax.swing.JFrame {
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet rsLogin = stm.executeQuery("SELECT * FROM tmpetugas WHERE username = '" + row_txtusername + "'");
+            java.sql.ResultSet rsLogin = stm.executeQuery("SELECT * FROM tb_petugas WHERE username = '" + row_txtusername + "'");
 
             if (rsLogin.next()) {
                 if (BCrypt.checkpw(row_txtpassword, rsLogin.getString("password"))) {
-                    switch (rsLogin.getString("status")) {
-                        case "aktif":
+                    switch (rsLogin.getString("role")) {
+                        case "admin":
                             PetugasSession.setU_id(rsLogin.getInt("id"));
                             PetugasSession.setU_username(rsLogin.getString("username"));
                             PetugasSession.setU_nama(rsLogin.getString("nama"));
-                            PetugasSession.setU_status(rsLogin.getString("status"));
+                            PetugasSession.setU_role(rsLogin.getString("role"));
+                            PetugasSession.setU_ruangan(rsLogin.getString("ruangan"));
                             new Frmmain().setVisible(true);
                             this.dispose();
                             break;
-                        case "nonaktif":
+                        case "petugas":
                             JOptionPane.showMessageDialog(null, "Akun yang Anda masukkan telah dinonaktifkan. \nSilahkan hubungi Administrator untuk info selanjutnya.");
                             txtusername.setText("");
                             txtpassword.setText("");
