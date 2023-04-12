@@ -78,7 +78,7 @@ public class Frmpetugas extends javax.swing.JDialog {
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT tb_petugas.id, tb_petugas.nama, tb_petugas.username, tb_petugas.role, tb.petugas.ruangan FROM tb_petugas");
+            java.sql.ResultSet sql = stm.executeQuery("SELECT tb_petugas.id, tb_petugas.nama, tb_petugas.username, tb_petugas.ruangan, tb_petugas.role FROM tb_petugas");
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
             
             JTableHeader th = datatable.getTableHeader();
@@ -235,7 +235,7 @@ public class Frmpetugas extends javax.swing.JDialog {
             }
         });
 
-        txtrole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "aktif", "nonaktif" }));
+        txtrole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "petugas", "spb", "direksi" }));
         txtrole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtroleActionPerformed(evt);
@@ -498,16 +498,16 @@ public class Frmpetugas extends javax.swing.JDialog {
                 btnsave.setText("Simpan Perubahan");
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_petugas.id, tb_petugas.nama, tb_petugas.username, tb_petugas.role, tb.petugas.ruangan FROM tb_petugas WHERE tb_petugas.id='"+row_id+"'");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_petugas.id, tb_petugas.nama, tb_petugas.username, tb_petugas.role, tb_petugas.ruangan FROM tb_petugas WHERE tb_petugas.id='"+row_id+"'");
                 if(sql.next()){
                     lbl_action.setForeground(new Color(4, 149, 56));
                     String kode = sql.getString("username");
                     lbl_action.setText("Edit Data | " + kode);
                     txtid.setText(sql.getString("id"));
                     txtnama.setText(sql.getString("nama"));
-                    txtruangan.setText(sql.getString("ruangan"));
                     txtusername.setText(kode);
                     txtrole.setSelectedItem(sql.getString("role"));
+                    txtruangan.setText(sql.getString("ruangan"));
                     txttemp_username.setText(kode);
                     txtnama.requestFocus();
                 }

@@ -44,6 +44,10 @@ public class Frmbarang extends javax.swing.JDialog {
         btnsave.setText("Simpan");
     }
 
+    Frmbarang() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     private void initUI() {
         getContentPane().setBackground(new Color(245, 245, 245));
 

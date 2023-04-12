@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.util.Arrays;
 import javax.swing.ImageIcon;
+
 /**
  *
  * @author rsgm
@@ -30,22 +31,22 @@ public class FrmloginPetugas extends javax.swing.JFrame {
      */
     rsgm.koneksi konek = new rsgm.koneksi();
     rsgm.PetugasSession PetugasSession = new rsgm.PetugasSession();
-    
+
     public FrmloginPetugas() {
         ImageIcon img = new ImageIcon("src/rsgm/img/icon.png");
         this.setIconImage(img.getImage());
         initComponents();
         initUI();
     }
-    
-    private void initUI(){ 
+
+    private void initUI() {
         getContentPane().setBackground(new Color(245, 245, 245));
-        
+
         Dimension windowSize = getSize();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Point centerPoint = ge.getCenterPoint();
         int dx = centerPoint.x - windowSize.width / 2;
-        int dy = centerPoint.y - windowSize.height / 2;    
+        int dy = centerPoint.y - windowSize.height / 2;
         setLocation(dx, dy);
     }
 
@@ -190,6 +191,15 @@ public class FrmloginPetugas extends javax.swing.JFrame {
                             this.dispose();
                             break;
                         case "petugas":
+                            PetugasSession.setU_id(rsLogin.getInt("id"));
+                            PetugasSession.setU_username(rsLogin.getString("username"));
+                            PetugasSession.setU_nama(rsLogin.getString("nama"));
+                            PetugasSession.setU_role(rsLogin.getString("role"));
+                            PetugasSession.setU_ruangan(rsLogin.getString("ruangan"));
+                            new Frmmain().setVisible(true);
+                            this.dispose();
+                            break;
+                        case "spb":
                             JOptionPane.showMessageDialog(null, "Akun yang Anda masukkan telah dinonaktifkan. \nSilahkan hubungi Administrator untuk info selanjutnya.");
                             txtusername.setText("");
                             txtpassword.setText("");
@@ -197,7 +207,7 @@ public class FrmloginPetugas extends javax.swing.JFrame {
                             break;
                         default:
                             break;
-                    } 
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Username dan password yang Anda masukkan salah. \nSilahkan coba lagi.");
                     txtusername.setText("");
@@ -219,13 +229,13 @@ public class FrmloginPetugas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnloginActionPerformed
 
     private void txtusernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusernameKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnloginActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), "Key Press login"));
         }
     }//GEN-LAST:event_txtusernameKeyPressed
 
     private void txtpasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btnloginActionPerformed(new ActionEvent(evt.getSource(), evt.getID(), "Key Press login"));
         }
     }//GEN-LAST:event_txtpasswordKeyPressed

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+
 /**
  *
  * @author rsgm
@@ -26,17 +27,16 @@ public final class Frmmain extends javax.swing.JFrame {
      * Creates new form Frmmain
      */
     rsgm.koneksi konek = new rsgm.koneksi();
-   rsgm.PetugasSession PetugasSession = new rsgm.PetugasSession();
-    
-    public Frmmain(){
+    rsgm.PetugasSession PetugasSession = new rsgm.PetugasSession();
+
+    public Frmmain() {
         ImageIcon img = new ImageIcon("src/rsgm/img/icon.png");
         this.setIconImage(img.getImage());
         initComponents();
         initUI();
         lblnama.setText(PetugasSession.getU_nama());
         lblusername.setText(PetugasSession.getU_username());
-        
-        
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
@@ -44,7 +44,7 @@ public final class Frmmain extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void windowActivated(WindowEvent e) {
         System.out.println("Window Activated Event");
     }
@@ -53,26 +53,26 @@ public final class Frmmain extends javax.swing.JFrame {
         System.out.println("Window Deactivated Event");
     }
 
-    private void initUI(){
+    private void initUI() {
         Dimension windowSize = getSize();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Point centerPoint = ge.getCenterPoint();
-        
+
         int dx = centerPoint.x - windowSize.width / 2;
-        int dy = centerPoint.y - windowSize.height / 2;    
+        int dy = centerPoint.y - windowSize.height / 2;
         setLocation(dx, dy);
-        
+
     }
-    
-    public void focusGained(FocusEvent fe){
+
+    public void focusGained(FocusEvent fe) {
         System.out.println("Focus gained in JPanel");
     }
 
-    public void focusLost(FocusEvent fe){
+    public void focusLost(FocusEvent fe) {
         System.out.println("Focus lost in JPanel");
     }
 
-    private void GetData(){
+    private void GetData() {
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
@@ -95,10 +95,11 @@ public final class Frmmain extends javax.swing.JFrame {
             Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void GetData_View(){
-        
+
+    private void GetData_View() {
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -421,7 +422,6 @@ public final class Frmmain extends javax.swing.JFrame {
         new FrmtransaksiKeluar(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
