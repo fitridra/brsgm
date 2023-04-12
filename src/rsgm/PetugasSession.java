@@ -13,7 +13,8 @@ public class PetugasSession {
     private static int u_id;
     private static String u_username;
     private static String u_nama;
-    private static String u_status;
+    private static String u_role;
+    private static String u_ruangan;
      
     public static int getU_id() {
         return u_id;
@@ -39,11 +40,19 @@ public class PetugasSession {
         PetugasSession.u_nama = u_nama;
     }
     
-    public static String getU_status() {
-        return u_status;
+    public static String getU_role() {
+        return u_role;
     }
  
-    public static void setU_status(String u_status) {
-        PetugasSession.u_status = u_status;
+    public static void setU_role(String u_role) {
+        PetugasSession.u_role = u_role;
+    }
+    
+    public static String getU_ruangan() {
+        return u_ruangan;
+    }
+ 
+    public static void setU_ruangan(String u_ruangan) {
+        PetugasSession.u_ruangan = u_ruangan;
     }
 }
