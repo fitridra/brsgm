@@ -180,34 +180,13 @@ public class FrmloginPetugas extends javax.swing.JFrame {
 
             if (rsLogin.next()) {
                 if (BCrypt.checkpw(row_txtpassword, rsLogin.getString("password"))) {
-                    switch (rsLogin.getString("role")) {
-                        case "admin":
-                            PetugasSession.setU_id(rsLogin.getInt("id"));
-                            PetugasSession.setU_username(rsLogin.getString("username"));
-                            PetugasSession.setU_nama(rsLogin.getString("nama"));
-                            PetugasSession.setU_role(rsLogin.getString("role"));
-                            PetugasSession.setU_ruangan(rsLogin.getString("ruangan"));
-                            new Frmmain().setVisible(true);
-                            this.dispose();
-                            break;
-                        case "petugas":
-                            PetugasSession.setU_id(rsLogin.getInt("id"));
-                            PetugasSession.setU_username(rsLogin.getString("username"));
-                            PetugasSession.setU_nama(rsLogin.getString("nama"));
-                            PetugasSession.setU_role(rsLogin.getString("role"));
-                            PetugasSession.setU_ruangan(rsLogin.getString("ruangan"));
-                            new Frmmain().setVisible(true);
-                            this.dispose();
-                            break;
-                        case "spb":
-                            JOptionPane.showMessageDialog(null, "Akun yang Anda masukkan telah dinonaktifkan. \nSilahkan hubungi Administrator untuk info selanjutnya.");
-                            txtusername.setText("");
-                            txtpassword.setText("");
-                            txtusername.requestFocus();
-                            break;
-                        default:
-                            break;
-                    }
+                    PetugasSession.setU_id(rsLogin.getInt("id"));
+                    PetugasSession.setU_username(rsLogin.getString("username"));
+                    PetugasSession.setU_nama(rsLogin.getString("nama"));
+                    PetugasSession.setU_role(rsLogin.getString("role"));
+                    PetugasSession.setU_ruangan(rsLogin.getString("ruangan"));
+                    new Frmmain().setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Username dan password yang Anda masukkan salah. \nSilahkan coba lagi.");
                     txtusername.setText("");

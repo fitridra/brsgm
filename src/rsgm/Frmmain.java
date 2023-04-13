@@ -344,7 +344,12 @@ public final class Frmmain extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        new Frmpetugas(this, rootPaneCheckingEnabled).setVisible(true);
+        if (!"admin".equals(PetugasSession.getU_role())) {
+            new Frmpetugas(this, rootPaneCheckingEnabled).setVisible(false);
+            JOptionPane.showMessageDialog(null, "Anda tidak dapat mengakses menu ini");
+        } else {
+            new Frmpetugas(this, rootPaneCheckingEnabled).setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -359,7 +364,12 @@ public final class Frmmain extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        new Frmbarang(this, rootPaneCheckingEnabled).setVisible(true);
+        if (!"admin".equals(PetugasSession.getU_role())) {
+            new Frmbarang(this, rootPaneCheckingEnabled).setVisible(false);
+            JOptionPane.showMessageDialog(null, "Anda tidak dapat mengakses menu ini");
+        } else {
+            new Frmbarang(this, rootPaneCheckingEnabled).setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
