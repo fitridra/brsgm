@@ -43,6 +43,10 @@ public final class Frmmain extends javax.swing.JFrame {
                 GetData();
             }
         });
+        if (!"admin".equals(PetugasSession.getU_role())) {
+            jMenu2.hide();
+
+        }
     }
 
     public void windowActivated(WindowEvent e) {
@@ -176,7 +180,7 @@ public final class Frmmain extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/print.png"))); // NOI18N
         jButton3.setText("Cetak Laporan");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -344,17 +348,12 @@ public final class Frmmain extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        if (!"admin".equals(PetugasSession.getU_role())) {
-            new Frmpetugas(this, rootPaneCheckingEnabled).setVisible(false);
-            JOptionPane.showMessageDialog(null, "Anda tidak dapat mengakses menu ini");
-        } else {
-            new Frmpetugas(this, rootPaneCheckingEnabled).setVisible(true);
-        }
+        new Frmpetugas(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        new FrmtransaksiMasuk(this, rootPaneCheckingEnabled).setVisible(true);
+        new Frmpermintaan(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -364,12 +363,7 @@ public final class Frmmain extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        if (!"admin".equals(PetugasSession.getU_role())) {
-            new Frmbarang(this, rootPaneCheckingEnabled).setVisible(false);
-            JOptionPane.showMessageDialog(null, "Anda tidak dapat mengakses menu ini");
-        } else {
-            new Frmbarang(this, rootPaneCheckingEnabled).setVisible(true);
-        }
+        new Frmbarang(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
@@ -424,12 +418,12 @@ public final class Frmmain extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        new FrmtransaksiMasuk(this, rootPaneCheckingEnabled).setVisible(true);
+        new FrmtransaksiKeluar(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new FrmtransaksiKeluar(this, rootPaneCheckingEnabled).setVisible(true);
+        new Frmpermintaan(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
