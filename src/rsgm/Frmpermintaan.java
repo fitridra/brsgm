@@ -478,6 +478,18 @@ public class Frmpermintaan extends javax.swing.JDialog {
         String data5 = txtjumlah_barang.getText();
         String data6 = txtketerangan.getText();
 
+        String[] nama_kategori = cmbid_barang.getSelectedItem().toString().split("\\s+");
+        String kode = nama_kategori[0];
+
+        Integer same_kode = 0;
+        DefaultTableModel model2 = (DefaultTableModel) datatable.getModel();
+        int rowCount = model2.getRowCount();
+        for (int i = 0; i < rowCount; i++) {
+            if (kode.equals(datatable.getModel().getValueAt(i, 1).toString())) {
+                same_kode = 1;
+            }
+        }
+
         if (!(data1.equals("")) && !(data2.equals("")) && !(data3.equals("")) && !(data4.equals("")) && !(data5.equals("")) && !(data6.equals(""))) {
             Object[] row = {data1, data2, data3, data4, data5, data6};
             DefaultTableModel model = (DefaultTableModel) datatable.getModel();
@@ -488,16 +500,13 @@ public class Frmpermintaan extends javax.swing.JDialog {
             txtsatuan.setText("");
             txtjumlah_barang.setText("");
             txtketerangan.setText("");
-//        } else if (data1) {
-////            JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
-//            JOptionPane.showMessageDialog(null, "Kode barang sudah pernah ditambah.");
 
+        } else if (same_kode != 0) {
+            JOptionPane.showMessageDialog(null, "Barang sudah pernah ditambah.");
         } else {
             JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
-//            JOptionPane.showMessageDialog(null, "Kode barang sudah pernah ditambah.");
-//            cmbid_barang.getSelectedItem();
+            cmbid_barang.getSelectedItem();
         }
-
     }//GEN-LAST:event_btnokActionPerformed
 
     private void cmbid_barangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbid_barangItemStateChanged
@@ -535,8 +544,8 @@ public class Frmpermintaan extends javax.swing.JDialog {
             }
         } else {
             txtid_barang.setText("");
-            txtnm_barang.setText("");
             txtsatuan.setText("");
+            txtnm_barang.setText("");
         }
     }//GEN-LAST:event_cmbid_barangItemStateChanged
 
@@ -546,12 +555,37 @@ public class Frmpermintaan extends javax.swing.JDialog {
         String row_idpetugas = txtid_petugas.getText();
 
         String id, stok, keterangan;
-        Integer id_barang_masuk = 0, jumlah, not_found;
+        Integer id_permintaan = 0, jumlah, not_found;
 
         DefaultTableModel model = (DefaultTableModel) datatable.getModel();
         int rowCount = model.getRowCount();
 
         if (rowCount > 0 && !"".equals(row_tgl) && !"".equals(row_idpetugas)) {
+
+            //------- Memasukan pada tabel transaksi lihat [trbarang_] dan mengeluarkan id terakhir
+            try {
+                Connection conn = konek.openkoneksi();
+                java.sql.Statement stm = conn.createStatement();
+                stm.executeUpdate("INSERT INTO tb_permintaan(tanggal, id_petugas) VALUES ('" + row_tgl + "', '" + row_idpetugas + "')");
+                konek.closekoneksi();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error " + e);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                Connection conn = konek.openkoneksi();
+                java.sql.Statement stm = conn.createStatement();
+                java.sql.ResultSet sql = stm.executeQuery("SELECT MAX(id_permintaan) as max FROM tb_permintaan");
+                sql.next();
+                id_permintaan = sql.getInt("max");
+                konek.closekoneksi();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error " + e);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             for (int i = 0; i < rowCount; i++) {
                 not_found = 0;
@@ -566,7 +600,7 @@ public class Frmpermintaan extends javax.swing.JDialog {
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("INSERT INTO tb_permintaan(id_barang, tanggal, id_petugas, stok_ruangan, jumlah_diminta, keterangan) VALUES ('" + id + "', '" + row_tgl + "', '" + row_idpetugas + "', '" + stok + "', '" + jumlah + "', '" + keterangan + "')");
+                        stm.executeUpdate("INSERT INTO tb_permintaan_detail(id_barang, stok_ruangan, id_permintaan, jumlah_diminta, keterangan) VALUES ('" + id + "', '" + stok + "', '" + id_permintaan + "', '" + jumlah + "', '" + keterangan + "')");
                         konek.closekoneksi();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, "Error " + e);
@@ -574,10 +608,10 @@ public class Frmpermintaan extends javax.swing.JDialog {
                         Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Sistem tidak menemukan barang dengan kode = " + id, "Barang Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sistem tidak menemukan barang " + id, "Barang Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            JOptionPane.showMessageDialog(null, "Berhasil menyimpan data transaksi");
+            JOptionPane.showMessageDialog(null, "Berhasil menyimpan data barang.");
             TableEmpty();
 
 //            try {
