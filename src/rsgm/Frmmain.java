@@ -35,7 +35,7 @@ public final class Frmmain extends javax.swing.JFrame {
         initComponents();
         initUI();
         lblnama.setText(PetugasSession.getU_nama());
-        lblusername.setText(PetugasSession.getU_username());
+        lblruangan.setText(PetugasSession.getU_ruangan());
 
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -124,7 +124,7 @@ public final class Frmmain extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnama = new javax.swing.JLabel();
-        lblusername = new javax.swing.JLabel();
+        lblruangan = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -135,6 +135,9 @@ public final class Frmmain extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
 
@@ -199,7 +202,7 @@ public final class Frmmain extends javax.swing.JFrame {
 
         lblnama.setText("Nama");
 
-        lblusername.setText("Username");
+        lblruangan.setText("Ruangan");
 
         jButton2.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/out.png"))); // NOI18N
@@ -231,7 +234,7 @@ public final class Frmmain extends javax.swing.JFrame {
                     .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblusername)
+                            .addComponent(lblruangan)
                             .addComponent(lblnama))))
                 .addGap(29, 29, 29))
         );
@@ -248,7 +251,7 @@ public final class Frmmain extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addComponent(lblnama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblusername)
+                .addComponent(lblruangan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(118, Short.MAX_VALUE))
@@ -313,6 +316,16 @@ public final class Frmmain extends javax.swing.JFrame {
         jMenu3.add(jMenuItem5);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu6.setText("Daftar Persetujuan");
+
+        jMenuItem2.setText("Permintaan");
+        jMenu6.add(jMenuItem2);
+
+        jMenuItem7.setText("SPB");
+        jMenu6.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu6);
 
         jMenu4.setText("Cetak Laporan");
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -473,14 +486,17 @@ public final class Frmmain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblnama;
-    private javax.swing.JLabel lblusername;
+    private javax.swing.JLabel lblruangan;
     // End of variables declaration//GEN-END:variables
 }
