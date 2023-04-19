@@ -612,15 +612,9 @@ public class Frmspb extends javax.swing.JDialog {
                 try {
                     Connection conn = konek.openkoneksi();
                     java.sql.Statement stm = conn.createStatement();
-                    java.sql.ResultSet sql = stm.executeQuery("SELECT tb_permintaan.id_permintaan, tb_permintaan.tanggal, tb_petugas.nama as nama FROM tb_permintaan JOIN tb_petugas ON tb_petugas.id = tb_permintaan.id_petugas");
+                    java.sql.ResultSet sql = stm.executeQuery("SELECT * FROM tb_permintaan");
                     if (sql.next()) {
-                        txtnm_barang.setText(sql.getString("nm_barang"));
-                        txtstok.setText(sql.getString("id_barang"));
-                        txtsatuan.setText(sql.getString("id_barang"));
-                        txtjumlahBarang.setText(sql.getString("id_barang"));
-                        txtharga.setText(sql.getString("id_barang"));
-                        txtjumlah.setText(sql.getString("id_barang"));
-                        txtketerangan.setText(sql.getString("id_barang"));
+                        txtid_permintaan.setText(sql.getString("id_permintaan"));
                     }
                     konek.closekoneksi();
                 } catch (SQLException e) {
@@ -686,6 +680,12 @@ public class Frmspb extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
             cmbid_permintaan.getSelectedItem();
         }
+//        
+//        Connection conn = konek.openkoneksi();
+//            java.sql.Statement stm = conn.createStatement();
+//            java.sql.ResultSet sql = stm.executeQuery("SELECT tb_barang.id_barang, tb_barang.nm_barang, tb_barang.satuan, tb_barang.harga, tb_barang.stok_gudang FROM tb_barang");
+//
+//            datatable.setModel(DbUtils.resultSetToTableModel(sql));
     }//GEN-LAST:event_btnokActionPerformed
 
     /**

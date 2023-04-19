@@ -136,7 +136,6 @@ public final class Frmmain extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -317,12 +316,14 @@ public final class Frmmain extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
-        jMenu6.setText("Daftar Persetujuan");
+        jMenu6.setText("Persetujuan");
 
-        jMenuItem2.setText("Permintaan");
-        jMenu6.add(jMenuItem2);
-
-        jMenuItem7.setText("SPB");
+        jMenuItem7.setText("Permintaan Ruangan");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem7);
 
         jMenuBar1.add(jMenu6);
@@ -353,7 +354,7 @@ public final class Frmmain extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dialogBackgrounds2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dialogBackgrounds2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -439,6 +440,11 @@ public final class Frmmain extends javax.swing.JFrame {
         new Frmpermintaan(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        new Frmpersetujuan(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -489,7 +495,6 @@ public final class Frmmain extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
