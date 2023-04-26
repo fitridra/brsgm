@@ -472,7 +472,7 @@ public class Frmpersetujuan extends javax.swing.JDialog {
             try {
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_permintaan_detail.stok_ruangan, tb_permintaan_detail.jumlah_diminta,tb_permintaan_detail.jumlah_disetujui, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" + row_id + "'");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_permintaan_detail.stok_ruangan, tb_permintaan_detail.jumlah_diminta,tb_permintaan_detail.jumlah_disetujui, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan_detail='" + row_id + "'");
                 if (sql.next()) {
                     lbl_action.setForeground(new Color(4, 149, 56));
                     lbl_action.setText("Persetujuan Data");
@@ -608,6 +608,7 @@ public class Frmpersetujuan extends javax.swing.JDialog {
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnsaveActionPerformed
 
     /**

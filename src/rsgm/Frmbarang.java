@@ -448,7 +448,7 @@ public class Frmbarang extends javax.swing.JDialog {
                 btnsave.setText("Simpan Perubahan");
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_barang.id_barang, tb_barang.nm_barang, tb_barang.satuan, tb_barang.harga, tb_barang.stok_gudang FROM tb_barang");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_barang.id_barang, tb_barang.nm_barang, tb_barang.satuan, tb_barang.harga, tb_barang.stok_gudang FROM tb_barang WHERE tb_barang.id_barang='"+row_id+"'");
                 if (sql.next()) {
                     lbl_action.setForeground(new Color(4, 149, 56));
                     lbl_action.setText("Edit Data");
@@ -700,7 +700,4 @@ public class Frmbarang extends javax.swing.JDialog {
     private javax.swing.JTextField txtstok;
     // End of variables declaration//GEN-END:variables
 
-    private void setPreferredWidth(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
