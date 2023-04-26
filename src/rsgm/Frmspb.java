@@ -74,6 +74,15 @@ public class Frmspb extends javax.swing.JDialog {
         setLocation(dx, dy);
     }
 
+    public void getSum() {
+        int sum = 0;
+        for (int i = 0; i < datatable.getRowCount(); i++) {
+            sum = sum + Integer.parseInt(datatable.getValueAt(i, 7).toString());
+        }
+
+        jLabel12.setText(Integer.toString(sum));
+    }
+
     private void SelectPermintaan() {
         try {
             Connection conn = konek.openkoneksi();
@@ -96,7 +105,7 @@ public class Frmspb extends javax.swing.JDialog {
     private void TxtEmpty() {
         TableEmpty();
         BtnEnabled(false);
-        txtid_selected.setText("");
+        txtid.setText("");
         txtid_petugas.setVisible(true);
         txtstok.setVisible(true);
         txtnm_barang.setVisible(true);
@@ -114,7 +123,6 @@ public class Frmspb extends javax.swing.JDialog {
     }
 
     private void BtnEnabled(boolean x) {
-        btnDelRow.setEnabled(x);
     }
 
     private void noTable() {
@@ -127,7 +135,6 @@ public class Frmspb extends javax.swing.JDialog {
 
     private void GetData_View() {
         String row = Integer.toString(datatable.getSelectedRow());
-        txtid_selected.setText(row);
         BtnEnabled(true);
     }
 
@@ -150,9 +157,6 @@ public class Frmspb extends javax.swing.JDialog {
                 return false;
             }
         };
-        btnTableEmpty = new javax.swing.JButton();
-        btnDelRow = new javax.swing.JButton();
-        txtid_selected = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txttgl = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -160,7 +164,6 @@ public class Frmspb extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         btnsave = new javax.swing.JButton();
         txtid_petugas = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         txtnm_ruangan = new javax.swing.JTextField();
         txtnm_barang = new javax.swing.JTextField();
         txtstok = new javax.swing.JTextField();
@@ -174,6 +177,8 @@ public class Frmspb extends javax.swing.JDialog {
         txtjumlah = new javax.swing.JTextField();
         txtketerangan = new javax.swing.JTextField();
         txtid_permintaan = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtid = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RS Gading Medika :: SPB");
@@ -230,58 +235,21 @@ public class Frmspb extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(datatable);
 
-        btnTableEmpty.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        btnTableEmpty.setText("Hapus Semua");
-        btnTableEmpty.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTableEmptyActionPerformed(evt);
-            }
-        });
-
-        btnDelRow.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        btnDelRow.setText("Hapus Yang Terpilih");
-        btnDelRow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelRowActionPerformed(evt);
-            }
-        });
-
-        txtid_selected.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        txtid_selected.setEnabled(false);
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(579, 579, 579)
-                        .addComponent(txtid_selected, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 33, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnTableEmpty)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDelRow)
-                                .addGap(387, 387, 387)))))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTableEmpty)
-                    .addComponent(btnDelRow))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtid_selected, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel1.setText("Tanggal SPB");
@@ -306,13 +274,6 @@ public class Frmspb extends javax.swing.JDialog {
         btnsave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnsaveActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setText("Bersihkan inputan SPB");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
             }
         });
 
@@ -350,6 +311,15 @@ public class Frmspb extends javax.swing.JDialog {
             }
         });
 
+        txtid.setBorder(null);
+        txtid.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        txtid.setForeground(new java.awt.Color(43, 152, 240));
+        txtid.setToolTipText("");
+        txtid.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtid.setEnabled(false);
+        txtid.setFocusable(false);
+        jScrollPane2.setViewportView(txtid);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -363,9 +333,9 @@ public class Frmspb extends javax.swing.JDialog {
                         .addComponent(jLabel5)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel7)
-                        .addGap(67, 67, 67)
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -447,12 +417,15 @@ public class Frmspb extends javax.swing.JDialog {
                     .addComponent(btnok))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel12))
-                    .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -545,34 +518,10 @@ public class Frmspb extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnsaveActionPerformed
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        // TODO add your handling code here:
-        TxtEmpty();
-    }//GEN-LAST:event_jLabel7MouseClicked
-
-    private void btnTableEmptyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTableEmptyActionPerformed
-        // TODO add your handling code here:
-        int ok = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus semua baris ini?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION);
-        if (ok == 0) {
-            TableEmpty();
-        }
-    }//GEN-LAST:event_btnTableEmptyActionPerformed
-
     private void datatableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datatableMouseClicked
         // TODO add your handling code here:
         GetData_View();
     }//GEN-LAST:event_datatableMouseClicked
-
-    private void btnDelRowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelRowActionPerformed
-        // TODO add your handling code here:
-        int ok = JOptionPane.showConfirmDialog(null, "Anda yakin ingin menghapus baris ini?", "Konfirmasi", JOptionPane.OK_CANCEL_OPTION);
-        if (ok == 0) {
-            int row = Integer.parseInt(txtid_selected.getText());
-            DefaultTableModel model = (DefaultTableModel) datatable.getModel();
-            model.removeRow(row);
-            BtnEnabled(false);
-        }
-    }//GEN-LAST:event_btnDelRowActionPerformed
 
     private void datatableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datatableMouseReleased
         // TODO add your handling code here:
@@ -612,7 +561,7 @@ public class Frmspb extends javax.swing.JDialog {
                 try {
                     Connection conn = konek.openkoneksi();
                     java.sql.Statement stm = conn.createStatement();
-                    java.sql.ResultSet sql = stm.executeQuery("SELECT * FROM tb_permintaan");
+                    java.sql.ResultSet sql = stm.executeQuery("SELECT * FROM tb_permintaan WHERE id_permintaan='" + kode + "'");
                     if (sql.next()) {
                         txtid_permintaan.setText(sql.getString("id_permintaan"));
                     }
@@ -640,52 +589,40 @@ public class Frmspb extends javax.swing.JDialog {
 
     private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
         // TODO add your handling code here:
-
-        String data1 = txtnm_barang.getText();
-        String data2 = txtstok.getText();
-        String data3 = txtsatuan.getText();
-        String data4 = txtjumlahBarang.getText();
-        String data5 = txtharga.getText();
-        String data6 = txtjumlah.getText();
-        String data7 = txtketerangan.getText();
-
         String[] nama_kategori = cmbid_permintaan.getSelectedItem().toString().split("\\s+");
         String kode = nama_kategori[0];
 
-        Integer same_kode = 0;
-        DefaultTableModel model2 = (DefaultTableModel) datatable.getModel();
-        int rowCount = model2.getRowCount();
-        for (int i = 0; i < rowCount; i++) {
-            if (kode.equals(datatable.getModel().getValueAt(i, 1).toString())) {
-                same_kode = 1;
+        DefaultTableModel tabel = new DefaultTableModel();
+        tabel.addColumn("ID Permintaan");
+        tabel.addColumn("Nama Barang");
+        tabel.addColumn("Stok Ruangan");
+        tabel.addColumn("Jumlah Diminta");
+        tabel.addColumn("Jumlah Disetujui");
+        tabel.addColumn("Keterangan");
+        tabel.addColumn("Manager");
+        tabel.addColumn("Direktur");
+
+        //menampilkan data database kedalam tabel
+        try {
+            Connection conn = konek.openkoneksi();
+            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_permintaan_detail.stok_ruangan, tb_permintaan_detail.jumlah_diminta,tb_permintaan_detail.jumlah_disetujui, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" +kode+"' AND tb_permintaan_detail.p_manager='" + "Setuju" + "' AND tb_permintaan_detail.p_direktur='" + "Setuju" +"'";
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                tabel.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), res.getString(4),
+                    res.getString(5),
+                    res.getString(6),
+                    res.getString(7),
+                    res.getString(8)});
             }
-        }
+            datatable.setModel(tabel);
 
-        if (!(data1.equals("")) && !(data2.equals("")) && !(data3.equals("")) && !(data4.equals("")) && !(data5.equals("")) && !(data6.equals("")) && !(data7.equals(""))) {
-            Object[] row = {data1, data2, data3, data4, data5, data6, data7};
-            DefaultTableModel model = (DefaultTableModel) datatable.getModel();
-            model.addRow(row);
-            noTable();
-            txtnm_barang.setText("");
-            txtstok.setText("");
-            txtsatuan.setText("");
-            txtjumlahBarang.setText("");
-            txtharga.setText("");
-            txtjumlah.setText("");
-            txtketerangan.setText("");
-
-        } else if (same_kode != 0) {
-            JOptionPane.showMessageDialog(null, "Permintaan sudah pernah ditambah.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
-            cmbid_permintaan.getSelectedItem();
+            konek.closekoneksi();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Frmpersetujuan.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        
-//        Connection conn = konek.openkoneksi();
-//            java.sql.Statement stm = conn.createStatement();
-//            java.sql.ResultSet sql = stm.executeQuery("SELECT tb_barang.id_barang, tb_barang.nm_barang, tb_barang.satuan, tb_barang.harga, tb_barang.stok_gudang FROM tb_barang");
-//
-//            datatable.setModel(DbUtils.resultSetToTableModel(sql));
     }//GEN-LAST:event_btnokActionPerformed
 
     /**
@@ -744,8 +681,6 @@ public class Frmspb extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDelRow;
-    private javax.swing.JButton btnTableEmpty;
     private javax.swing.JButton btnok;
     private javax.swing.JButton btnsave;
     private javax.swing.JComboBox<String> cmbid_permintaan;
@@ -756,15 +691,15 @@ public class Frmspb extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtharga;
+    private javax.swing.JTextPane txtid;
     private javax.swing.JTextField txtid_permintaan;
     private javax.swing.JTextField txtid_petugas;
-    private javax.swing.JTextField txtid_selected;
     private javax.swing.JTextField txtjumlah;
     private javax.swing.JTextField txtjumlahBarang;
     private javax.swing.JTextField txtketerangan;
