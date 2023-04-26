@@ -45,7 +45,6 @@ public final class Frmmain extends javax.swing.JFrame {
         });
         if (!"admin".equals(PetugasSession.getU_role())) {
             jMenu2.hide();
-
         }
     }
 

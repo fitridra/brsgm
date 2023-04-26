@@ -55,11 +55,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lbl_action" min="-2" max="-2" attributes="0"/>
                   <Component id="panel" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="txtid_permintaan" min="-2" pref="28" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="txt_id_pd" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="txtid_permintaan" min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -76,24 +72,16 @@
                       <Component id="txtid_permintaan" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnedit" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnok" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_id_pd" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="lbl_action" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="245" max="-2" attributes="0"/>
-                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panel" min="-2" pref="221" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panel" min="-2" pref="162" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="385" max="-2" attributes="0"/>
               </Group>
@@ -144,22 +132,20 @@
                               <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="txtharga" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtsatuan" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtjumlah" alignment="1" max="32767" attributes="0"/>
                               <Component id="txtnama" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtstok" max="32767" attributes="0"/>
+                              <Component id="txtstatus" pref="198" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="0" pref="105" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Component id="btncancel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnsave" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="btnsave" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -176,25 +162,20 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtsatuan" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtjumlah" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtharga" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtstatus" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtstok" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnsave" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btncancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="502" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="546" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -210,7 +191,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnsave">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Simpan"/>
+            <Property name="text" type="java.lang.String" value="Setujui"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnsaveActionPerformed"/>
@@ -219,9 +200,9 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="txtsatuan"/>
+              <ComponentRef name="txtjumlah"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Satuan"/>
+            <Property name="text" type="java.lang.String" value="Jumlah Disetujui"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtnama">
@@ -235,15 +216,15 @@
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
             <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="txtharga"/>
+              <ComponentRef name="txtstatus"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Harga"/>
+            <Property name="text" type="java.lang.String" value="Status"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtsatuan">
+        <Component class="javax.swing.JTextField" name="txtjumlah">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtsatuanActionPerformed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtsatuanKeyTyped"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtjumlahActionPerformed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtjumlahKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btncancel">
@@ -254,17 +235,22 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btncancelActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JComboBox" name="txtstatus">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Stok Gudang"/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="3">
+                <StringItem index="0" value="Setuju"/>
+                <StringItem index="1" value="Tidak Setuju"/>
+                <StringItem index="2" value="Pending"/>
+              </StringArray>
+            </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtstok">
           <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtstokKeyTyped"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtstatusActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtharga">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -461,8 +447,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtid_permintaan">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_id_pd">
     </Component>
   </SubComponents>
 </Form>
