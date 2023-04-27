@@ -70,13 +70,6 @@ public class FrmpersetujuanPermintaan extends javax.swing.JDialog {
         }
     }
 
-    private void TxtEmpty() {
-        txtid.setText("");
-        txtnama.setText("");
-        txtjumlah.setText("");
-        txtstatus.setSelectedItem("Setuju");
-    }
-
     private void BtnEnabled(boolean x) {
         btnedit.setEnabled(x);
     }

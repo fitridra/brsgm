@@ -56,11 +56,11 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
 
-            java.sql.ResultSet rs = stm.executeQuery("SELECT tb_spb.id_spb, tb_permintaan.tanggal, tb_petugas.nama as nama FROM tb_spb JOIN tb_petugas ON tb_petugas.id = tb_spb.id_petugas");
+            java.sql.ResultSet rs = stm.executeQuery("SELECT tb_spb.id_spb, tb_spb.tanggal, tb_petugas.nama as nama, tb_spb.total FROM tb_spb JOIN tb_petugas ON tb_petugas.id = tb_spb.id_petugas");
 
             cmbid_permintaan.addItem("Pilih");
             while (rs.next()) {
-                cmbid_permintaan.addItem(rs.getString("id_spb") + " [" + rs.getString("tanggal") + "] " + rs.getString("nama") + " - " + rs.getString("total"));
+                cmbid_permintaan.addItem(rs.getString("id_spb") + " [" + rs.getString("tanggal") + "] " + rs.getString("nama") + " - Rp. " + rs.getString("total"));
             }
             konek.closekoneksi();
         } catch (SQLException e) {
@@ -94,10 +94,8 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
         panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnsave = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         txtnama = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtjumlah = new javax.swing.JTextField();
         btncancel = new javax.swing.JButton();
         txtstatus = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -143,9 +141,6 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setLabelFor(txtjumlah);
-        jLabel2.setText("Jumlah Disetujui");
-
         txtnama.setEnabled(false);
         txtnama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,17 +150,6 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
 
         jLabel4.setLabelFor(txtstatus);
         jLabel4.setText("Status");
-
-        txtjumlah.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtjumlahActionPerformed(evt);
-            }
-        });
-        txtjumlah.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtjumlahKeyTyped(evt);
-            }
-        });
 
         btncancel.setText("Batal");
         btncancel.addActionListener(new java.awt.event.ActionListener() {
@@ -187,24 +171,21 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(30, 30, 30)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtjumlah)
-                            .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtstatus, 0, 198, Short.MAX_VALUE))
-                        .addGap(14, 14, 14))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btncancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtstatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(14, 14, 14))))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,10 +195,6 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                     .addComponent(txtnama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtjumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(txtstatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -225,7 +202,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsave)
                     .addComponent(btncancel))
-                .addGap(546, 546, 546))
+                .addGap(574, 574, 574))
         );
 
         datatable.setModel(new javax.swing.table.DefaultTableModel(
@@ -300,7 +277,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
         );
 
         lblcount_rows.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        lblcount_rows.setText("Jumlah Data ");
+        lblcount_rows.setText("Total");
 
         cmbid_permintaan.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -343,20 +320,18 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cmbid_permintaan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnok)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnedit))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(cmbid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnok)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnedit))
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_action)
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -406,7 +381,6 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                     lbl_action.setText("Persetujuan Data");
                     txtid.setText(sql.getString("id_permintaan_detail"));
                     txtnama.setText(sql.getString("nama"));
-                    txtjumlah.setText(sql.getString("jumlah_disetujui"));
                     if (null != PetugasSession.getU_role()) {
                         switch (PetugasSession.getU_role()) {
                             case "manager":
@@ -437,14 +411,6 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
     private void txtnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnamaActionPerformed
-
-    private void txtjumlahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtjumlahActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtjumlahActionPerformed
-
-    private void txtjumlahKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtjumlahKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtjumlahKeyTyped
 
     private void cmbid_permintaanItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbid_permintaanItemStateChanged
         String[] nama_kategori = cmbid_permintaan.getSelectedItem().toString().split("\\s+");
@@ -494,7 +460,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
         //menampilkan data database kedalam tabel
         try {
             Connection conn = konek.openkoneksi();
-            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, (tb_permintaan_detail.jumlah_disetujui*tb_barang.harga) as total, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" + kode + "' AND tb_permintaan_detail.p_manager='" + "Setuju" + "' AND tb_permintaan_detail.p_direktur='" + "Setuju" + "'";
+            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, (tb_permintaan_detail.jumlah_disetujui*tb_barang.harga) as total, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" + kode + "'";
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {
@@ -511,7 +477,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
             for (int i = 0; i < datatable.getRowCount(); i++) {
                 sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
             }
-            jLabel4.setText(Integer.toString(sum));
+            lblcount_rows.setText(Integer.toString(sum));
             konek.closekoneksi();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error " + e);
@@ -535,13 +501,13 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
 
         if (null != PetugasSession.getU_role())
             switch (PetugasSession.getU_role()) {
-                case "manager":
+                case "Manager":
                     if (!"".equals(row_txtnama) && !"".equals(row_txtstatus)) {
                         if (c_kode == 0 || row_id.equals(row_id)) {
                             try {
                                 Connection conn = konek.openkoneksi();
                                 java.sql.Statement stm = conn.createStatement();
-                                stm.executeUpdate("UPDATE tb_spb_detail SET p_manager='" + row_txtstatus + "' WHERE id_spb_detail = '" + row_id + "'");
+                                stm.executeUpdate("UPDATE tb_spb_detail SET p_managerk='" + row_txtstatus + "' WHERE id_spb_detail = '" + row_id + "'");
                                 JOptionPane.showMessageDialog(null, "SPB Berhasil Disetujui.");
                                 btnok.doClick();
                                 konek.closekoneksi();
@@ -558,13 +524,13 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
                     }
                     break;
-                case "direktur":
+                case "Direktur RS":
                     if (!"".equals(row_txtnama) && !"".equals(row_txtstatus)) {
                         if (c_kode == 0 || row_id.equals(row_id)) {
                             try {
                                 Connection conn = konek.openkoneksi();
                                 java.sql.Statement stm = conn.createStatement();
-                                stm.executeUpdate("UPDATE tb_spb_detail SET p_direktur='" + row_txtstatus + "' WHERE id_spb_detail = '" + row_id + "'");
+                                stm.executeUpdate("UPDATE tb_spb_detail SET p_direkturrs='" + row_txtstatus + "' WHERE id_spb_detail = '" + row_id + "'");
                                 JOptionPane.showMessageDialog(null, "SPB Berhasil Disetujui.");
                                 btnok.doClick();
                                 konek.closekoneksi();
@@ -581,13 +547,13 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
                     }
                     break;
-                case "spi":
+                case "Direktur PT":
                     if (!"".equals(row_txtnama) && !"".equals(row_txtstatus)) {
                         if (c_kode == 0 || row_id.equals(row_id)) {
                             try {
                                 Connection conn = konek.openkoneksi();
                                 java.sql.Statement stm = conn.createStatement();
-                                stm.executeUpdate("UPDATE tb_spb_detail SET p_spi='" + row_txtstatus + "' WHERE id_spb_detail = '" + row_id + "'");
+                                stm.executeUpdate("UPDATE tb_spb_detail SET p_direkturpt='" + row_txtstatus + "' WHERE id_spb_detail = '" + row_id + "'");
                                 JOptionPane.showMessageDialog(null, "SPB Berhasil Disetujui.");
                                 btnok.doClick();
                                 konek.closekoneksi();
@@ -807,7 +773,6 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbid_permintaan;
     private javax.swing.JTable datatable;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -820,7 +785,6 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
     private javax.swing.JPanel panel;
     private javax.swing.JTextPane txtid;
     private javax.swing.JTextField txtid_permintaan;
-    private javax.swing.JTextField txtjumlah;
     private javax.swing.JTextField txtnama;
     private javax.swing.JComboBox<String> txtstatus;
     // End of variables declaration//GEN-END:variables
