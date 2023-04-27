@@ -50,7 +50,7 @@ public class Frmspb extends javax.swing.JDialog {
         initComponents();
         initUI();
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
 
         txttgl.setText(dateFormat.format(cal.getTime()));
@@ -72,15 +72,6 @@ public class Frmspb extends javax.swing.JDialog {
         int dx = centerPoint.x - windowSize.width / 2;
         int dy = centerPoint.y - windowSize.height / 2;
         setLocation(dx, dy);
-    }
-
-    public void getSum() {
-        int sum = 0;
-        for (int i = 0; i < datatable.getRowCount(); i++) {
-            sum = sum + Integer.parseInt(datatable.getValueAt(i, 7).toString());
-        }
-
-        jLabel12.setText(Integer.toString(sum));
     }
 
     private void SelectPermintaan() {
@@ -105,7 +96,6 @@ public class Frmspb extends javax.swing.JDialog {
     private void TxtEmpty() {
         TableEmpty();
         BtnEnabled(false);
-        txtid.setText("");
         txtid_petugas.setVisible(true);
         txtstok.setVisible(true);
         txtnm_barang.setVisible(true);
@@ -123,14 +113,6 @@ public class Frmspb extends javax.swing.JDialog {
     }
 
     private void BtnEnabled(boolean x) {
-    }
-
-    private void noTable() {
-        int baris = datatable.getRowCount();
-        for (int a = 0; a < baris; a++) {
-            String nomor = String.valueOf(a + 1);
-            datatable.setValueAt(nomor, a, 0);
-        }
     }
 
     private void GetData_View() {
@@ -177,8 +159,6 @@ public class Frmspb extends javax.swing.JDialog {
         txtjumlah = new javax.swing.JTextField();
         txtketerangan = new javax.swing.JTextField();
         txtid_permintaan = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtid = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RS Gading Medika :: SPB");
@@ -216,7 +196,7 @@ public class Frmspb extends javax.swing.JDialog {
 
             },
             new String [] {
-                "No", "Nama Barang", "Stok", "Satuan", "Jumlah Barang", "Estimasi Harga", "Jumlah", "Keterangan"
+                "ID Permintaan", "Nama Barang", "Stok", "Satuan", "Jumlah Barang", "Estimasi Harga", "Jumlah", "Keterangan"
             }
         ));
         datatable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -311,15 +291,6 @@ public class Frmspb extends javax.swing.JDialog {
             }
         });
 
-        txtid.setBorder(null);
-        txtid.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        txtid.setForeground(new java.awt.Color(43, 152, 240));
-        txtid.setToolTipText("");
-        txtid.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtid.setEnabled(false);
-        txtid.setFocusable(false);
-        jScrollPane2.setViewportView(txtid);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -334,8 +305,6 @@ public class Frmspb extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -417,15 +386,10 @@ public class Frmspb extends javax.swing.JDialog {
                     .addComponent(btnok))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel12)
+                    .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -438,9 +402,16 @@ public class Frmspb extends javax.swing.JDialog {
         // TODO add your handling code here:
         String row_tgl = txttgl.getText();
         String row_idpetugas = txtid_petugas.getText();
+//        String row_total = txtid_petugas.getText();
+        
+        int sum = 0;
+            for (int i = 0; i < datatable.getRowCount(); i++) {
+                sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
+            }
+            Integer.toString(sum);
 
-        String id, stok, keterangan;
-        Integer id_permintaan = 0, jumlah, not_found;
+        String id;
+        Integer id_spb = 0, jumlah, not_found;
 
         DefaultTableModel model = (DefaultTableModel) datatable.getModel();
         int rowCount = model.getRowCount();
@@ -451,7 +422,7 @@ public class Frmspb extends javax.swing.JDialog {
             try {
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                stm.executeUpdate("INSERT INTO tb_permintaan(tanggal, id_petugas) VALUES ('" + row_tgl + "', '" + row_idpetugas + "')");
+                stm.executeUpdate("INSERT INTO tb_spb(tanggal, id_petugas, total) VALUES ('" + row_tgl + "', '" + row_idpetugas + "', '" + sum + "'");
                 konek.closekoneksi();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error " + e);
@@ -462,9 +433,9 @@ public class Frmspb extends javax.swing.JDialog {
             try {
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT MAX(id_permintaan) as max FROM tb_permintaan");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT MAX(id_spb) as max FROM tb_spb");
                 sql.next();
-                id_permintaan = sql.getInt("max");
+                id_spb = sql.getInt("max");
                 konek.closekoneksi();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error " + e);
@@ -475,9 +446,7 @@ public class Frmspb extends javax.swing.JDialog {
             for (int i = 0; i < rowCount; i++) {
                 not_found = 0;
                 id = (datatable.getModel().getValueAt(i, 0).toString());
-                stok = (datatable.getModel().getValueAt(i, 2).toString());
-                keterangan = (datatable.getModel().getValueAt(i, 5).toString());
-                jumlah = Integer.valueOf((String) datatable.getModel().getValueAt(i, 4));
+                jumlah = Integer.valueOf((String) datatable.getModel().getValueAt(i, 6));
 
                 if (not_found == 0) {
 
@@ -485,7 +454,7 @@ public class Frmspb extends javax.swing.JDialog {
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("INSERT INTO tb_permintaan_detail(id_barang, stok_ruangan, id_permintaan, jumlah_diminta, keterangan) VALUES ('" + id + "', '" + stok + "', '" + id_permintaan + "', '" + jumlah + "', '" + keterangan + "')");
+                        stm.executeUpdate("INSERT INTO tb_spb_detail(id_permintaan_detail, id_spb, jumlah_harga, total) VALUES ('" + id + "', '" + id_spb + "', '" + jumlah + "')");
                         konek.closekoneksi();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, "Error " + e);
@@ -595,9 +564,11 @@ public class Frmspb extends javax.swing.JDialog {
         DefaultTableModel tabel = new DefaultTableModel();
         tabel.addColumn("ID Permintaan");
         tabel.addColumn("Nama Barang");
-        tabel.addColumn("Stok Ruangan");
-        tabel.addColumn("Jumlah Diminta");
-        tabel.addColumn("Jumlah Disetujui");
+        tabel.addColumn("Stok");
+        tabel.addColumn("Satuan");
+        tabel.addColumn("Jumlah Barang");
+        tabel.addColumn("Estimasi Harga");
+        tabel.addColumn("Jumlah");
         tabel.addColumn("Keterangan");
         tabel.addColumn("Manager");
         tabel.addColumn("Direktur");
@@ -605,7 +576,7 @@ public class Frmspb extends javax.swing.JDialog {
         //menampilkan data database kedalam tabel
         try {
             Connection conn = konek.openkoneksi();
-            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_permintaan_detail.stok_ruangan, tb_permintaan_detail.jumlah_diminta,tb_permintaan_detail.jumlah_disetujui, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" +kode+"' AND tb_permintaan_detail.p_manager='" + "Setuju" + "' AND tb_permintaan_detail.p_direktur='" + "Setuju" +"'";
+            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, (tb_permintaan_detail.jumlah_disetujui*tb_barang.harga) as total, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" + kode + "' AND tb_permintaan_detail.p_manager='" + "Setuju" + "' AND tb_permintaan_detail.p_direktur='" + "Setuju" + "'";
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {
@@ -613,10 +584,16 @@ public class Frmspb extends javax.swing.JDialog {
                     res.getString(5),
                     res.getString(6),
                     res.getString(7),
-                    res.getString(8)});
+                    res.getString(8),
+                    res.getString(9),
+                    res.getString(10)});
             }
             datatable.setModel(tabel);
-
+            int sum = 0;
+            for (int i = 0; i < datatable.getRowCount(); i++) {
+                sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
+            }
+            jLabel12.setText("Total = Rp. " + Integer.toString(sum));
             konek.closekoneksi();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error " + e);
@@ -695,9 +672,7 @@ public class Frmspb extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtharga;
-    private javax.swing.JTextPane txtid;
     private javax.swing.JTextField txtid_permintaan;
     private javax.swing.JTextField txtid_petugas;
     private javax.swing.JTextField txtjumlah;

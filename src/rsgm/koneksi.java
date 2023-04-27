@@ -20,7 +20,7 @@ public class koneksi {
     public Connection openkoneksi() throws ClassNotFoundException{
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String connURL = "jdbc:mysql://localhost:3306/inventori?autoReconnect=true&useSSL=false"
+            String connURL = "jdbc:mysql://localhost:3306/db_rsgm?autoReconnect=true&useSSL=false"
                     + "&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
             String user = "root";
             String password = "";

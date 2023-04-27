@@ -79,7 +79,7 @@ public final class Frmmain extends javax.swing.JFrame {
         try {
             Connection conn = konek.openkoneksi();
             java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT tmbarang.id, tmbarang.kode, tmbarang.nama, tmkategori.nama as kategori, tmbarang.stok, tmbarang.satuan FROM tmbarang JOIN tmkategori ON tmkategori.id = tmbarang.id_kategori");
+            java.sql.ResultSet sql = stm.executeQuery("SELECT * FROM tb_barang");
             datatable.setModel(DbUtils.resultSetToTableModel(sql));
             datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
             datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
