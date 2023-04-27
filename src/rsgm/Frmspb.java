@@ -9,8 +9,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -19,16 +17,7 @@ import javax.swing.JOptionPane;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -96,10 +85,8 @@ public class Frmspb extends javax.swing.JDialog {
     private void TxtEmpty() {
         TableEmpty();
         BtnEnabled(false);
-        txtid_petugas.setVisible(true);
-        txtstok.setVisible(true);
-        txtnm_barang.setVisible(true);
-        txtsatuan.setVisible(true);
+        txtid_petugas.setVisible(false);
+        txtid_permintaan.setVisible(false);
         cmbid_permintaan.setSelectedItem("Pilih");
         cmbid_permintaan.requestFocus();
     }
@@ -147,18 +134,12 @@ public class Frmspb extends javax.swing.JDialog {
         btnsave = new javax.swing.JButton();
         txtid_petugas = new javax.swing.JTextField();
         txtnm_ruangan = new javax.swing.JTextField();
-        txtnm_barang = new javax.swing.JTextField();
-        txtstok = new javax.swing.JTextField();
-        txtsatuan = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         cmbid_permintaan = new javax.swing.JComboBox<>();
         btnok = new javax.swing.JButton();
-        txtjumlahBarang = new javax.swing.JTextField();
-        txtharga = new javax.swing.JTextField();
-        txtjumlah = new javax.swing.JTextField();
-        txtketerangan = new javax.swing.JTextField();
         txtid_permintaan = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RS Gading Medika :: SPB");
@@ -291,6 +272,8 @@ public class Frmspb extends javax.swing.JDialog {
             }
         });
 
+        jLabel4.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -306,6 +289,8 @@ public class Frmspb extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -324,32 +309,11 @@ public class Frmspb extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtid_petugas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtjumlahBarang, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtnm_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(txtsatuan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtjumlah, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtstok, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtketerangan, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 32, Short.MAX_VALUE)
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txttgl, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(txttgl, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(cmbid_permintaan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
@@ -366,18 +330,11 @@ public class Frmspb extends javax.swing.JDialog {
                     .addComponent(txttgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtnm_petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtid_petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtnm_barang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtstok, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtsatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtid_petugas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtnm_ruangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtjumlahBarang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtjumlah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtketerangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -388,7 +345,9 @@ public class Frmspb extends javax.swing.JDialog {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12)
+                        .addComponent(jLabel4))
                     .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
@@ -402,14 +361,13 @@ public class Frmspb extends javax.swing.JDialog {
         // TODO add your handling code here:
         String row_tgl = txttgl.getText();
         String row_idpetugas = txtid_petugas.getText();
-//        String row_total = txtid_petugas.getText();
-        
-        int sum = 0;
-            for (int i = 0; i < datatable.getRowCount(); i++) {
-                sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
-            }
-            Integer.toString(sum);
+        String row_total = jLabel4.getText();
 
+//        int sum = 0;
+//            for (int i = 0; i < datatable.getRowCount(); i++) {
+//                sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
+//            }
+//            Integer.toString(sum);
         String id;
         Integer id_spb = 0, jumlah, not_found;
 
@@ -418,11 +376,12 @@ public class Frmspb extends javax.swing.JDialog {
 
         if (rowCount > 0 && !"".equals(row_tgl) && !"".equals(row_idpetugas)) {
 
-            //------- Memasukan pada tabel transaksi lihat [trbarang_] dan mengeluarkan id terakhir
+            //------- Memasukan pada tabel spb lihat [tb_spb] dan mengeluarkan id terakhir
             try {
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                stm.executeUpdate("INSERT INTO tb_spb(tanggal, id_petugas, total) VALUES ('" + row_tgl + "', '" + row_idpetugas + "', '" + sum + "'");
+                stm.executeUpdate("INSERT INTO tb_spb(tanggal, id_petugas, total) VALUES ('" + row_tgl + "', '" + row_idpetugas + "', '" + row_total + "')");
+
                 konek.closekoneksi();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error " + e);
@@ -450,11 +409,11 @@ public class Frmspb extends javax.swing.JDialog {
 
                 if (not_found == 0) {
 
-                    //------- Memasukan pada table transaksi detail
+                    //------- Memasukan pada table spb detail
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("INSERT INTO tb_spb_detail(id_permintaan_detail, id_spb, jumlah_harga, total) VALUES ('" + id + "', '" + id_spb + "', '" + jumlah + "')");
+                        stm.executeUpdate("INSERT INTO tb_spb_detail(id_permintaan_detail, id_spb, jumlah_harga) VALUES ('" + id + "', '" + id_spb + "', '" + jumlah + "')");
                         konek.closekoneksi();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, "Error " + e);
@@ -462,10 +421,10 @@ public class Frmspb extends javax.swing.JDialog {
                         Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Sistem tidak menemukan barang " + id, "Barang Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sistem tidak menemukan permintaan " + id, "SPB Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            JOptionPane.showMessageDialog(null, "Berhasil menyimpan data barang.");
+            JOptionPane.showMessageDialog(null, "Berhasil menyimpan SPB.");
             TableEmpty();
 
 //            try {
@@ -541,10 +500,6 @@ public class Frmspb extends javax.swing.JDialog {
                     Logger.getLogger(Frmpermintaan.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } else {
-            txtstok.setText("");
-            txtsatuan.setText("");
-            txtnm_barang.setText("");
         }
     }//GEN-LAST:event_cmbid_permintaanItemStateChanged
 
@@ -593,12 +548,12 @@ public class Frmspb extends javax.swing.JDialog {
             for (int i = 0; i < datatable.getRowCount(); i++) {
                 sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
             }
-            jLabel12.setText("Total = Rp. " + Integer.toString(sum));
+            jLabel4.setText(Integer.toString(sum));
             konek.closekoneksi();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error " + e);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Frmpersetujuan.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmpersetujuanPermintaan.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnokActionPerformed
 
@@ -667,22 +622,16 @@ public class Frmspb extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtharga;
     private javax.swing.JTextField txtid_permintaan;
     private javax.swing.JTextField txtid_petugas;
-    private javax.swing.JTextField txtjumlah;
-    private javax.swing.JTextField txtjumlahBarang;
-    private javax.swing.JTextField txtketerangan;
-    private javax.swing.JTextField txtnm_barang;
     private javax.swing.JTextField txtnm_petugas;
     private javax.swing.JTextField txtnm_ruangan;
-    private javax.swing.JTextField txtsatuan;
-    private javax.swing.JTextField txtstok;
     private javax.swing.JTextField txttgl;
     // End of variables declaration//GEN-END:variables
 }

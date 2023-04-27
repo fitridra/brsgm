@@ -12,8 +12,6 @@ import java.awt.Point;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -113,7 +111,7 @@ public class Frmlaporan extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cmbid_laporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Persedian Barang", "Barang Masuk", "Barang Keluar" }));
+        cmbid_laporan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih", "Permintaan Ruangan", "SPB" }));
         cmbid_laporan.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbid_laporanItemStateChanged(evt);

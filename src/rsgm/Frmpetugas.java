@@ -235,7 +235,7 @@ public class Frmpetugas extends javax.swing.JDialog {
             }
         });
 
-        txtrole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "petugas", "spb", "direksi" }));
+        txtrole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "petugas", "manager", "direktur", "spi" }));
         txtrole.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtroleActionPerformed(evt);

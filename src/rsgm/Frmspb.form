@@ -36,6 +36,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnsave" min="-2" pref="165" max="-2" attributes="0"/>
                   </Group>
@@ -58,41 +60,12 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="txtid_petugas" min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Component id="txtjumlahBarang" pref="0" max="32767" attributes="0"/>
+                                  <Component id="txtid_permintaan" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtnm_barang" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="txtharga" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                      <Component id="txtsatuan" min="-2" pref="22" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtjumlah" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtstok" min="-2" pref="24" max="-2" attributes="0"/>
-                                  <Component id="txtketerangan" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Component id="txttgl" min="-2" pref="160" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtid_permintaan" min="-2" pref="28" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="txttgl" min="-2" pref="160" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="cmbid_permintaan" max="32767" attributes="0"/>
@@ -117,18 +90,11 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtnm_petugas" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtid_petugas" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtnm_barang" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtstok" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtsatuan" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtnm_ruangan" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtjumlahBarang" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtharga" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtjumlah" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtketerangan" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtid_permintaan" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -141,7 +107,10 @@
               <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="btnsave" min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
@@ -373,12 +342,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtnm_ruanganActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtnm_barang">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtstok">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtsatuan">
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
         <Property name="text" type="java.lang.String" value="Permintaan"/>
@@ -412,15 +375,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnokActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtjumlahBarang">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtharga">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtjumlah">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtketerangan">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtid_permintaan">
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel4"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
