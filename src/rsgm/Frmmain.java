@@ -9,13 +9,7 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -26,7 +20,6 @@ public final class Frmmain extends javax.swing.JFrame {
     /**
      * Creates new form Frmmain
      */
-    rsgm.koneksi konek = new rsgm.koneksi();
     rsgm.PetugasSession PetugasSession = new rsgm.PetugasSession();
 
     public Frmmain() {
@@ -40,7 +33,7 @@ public final class Frmmain extends javax.swing.JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
-                GetData();
+
             }
         });
         if (!"admin".equals(PetugasSession.getU_role())) {
@@ -75,33 +68,6 @@ public final class Frmmain extends javax.swing.JFrame {
         System.out.println("Focus lost in JPanel");
     }
 
-    private void GetData() {
-        try {
-            Connection conn = konek.openkoneksi();
-            java.sql.Statement stm = conn.createStatement();
-            java.sql.ResultSet sql = stm.executeQuery("SELECT * FROM tb_barang");
-            datatable.setModel(DbUtils.resultSetToTableModel(sql));
-            datatable.getColumnModel().getColumn(0).setPreferredWidth(7);
-            datatable.getColumnModel().getColumn(1).setPreferredWidth(20);
-            datatable.getColumnModel().getColumn(2).setPreferredWidth(90);
-            datatable.getColumnModel().getColumn(3).setPreferredWidth(60);
-            datatable.getColumnModel().getColumn(4).setPreferredWidth(40);
-
-            //sql.last();
-//            String count_rows = String.valueOf(sql.getRow());
-            //lblcount_rows.setText("Jumlah Data : " + count_rows);
-            konek.closekoneksi();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error " + e);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private void GetData_View() {
-
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -112,18 +78,13 @@ public final class Frmmain extends javax.swing.JFrame {
     private void initComponents() {
 
         dialogBackgrounds2 = new rsgm.ui.DialogBackgrounds();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        datatable = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false;
-            }
-        };
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         lblnama = new javax.swing.JLabel();
         lblruangan = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -141,36 +102,6 @@ public final class Frmmain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RS GADING MEDIKA");
-
-        datatable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Kode", "Nama Barang", "Kategori", "Satuan", "Harga", "Stok"
-            }
-        ));
-        datatable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        datatable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                datatableMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                datatableMouseReleased(evt);
-            }
-        });
-        datatable.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                datatableKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                datatableKeyReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(datatable);
 
         jButton1.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/file.png"))); // NOI18N
@@ -211,6 +142,9 @@ public final class Frmmain extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/file.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout dialogBackgrounds2Layout = new javax.swing.GroupLayout(dialogBackgrounds2);
         dialogBackgrounds2.setLayout(dialogBackgrounds2Layout);
         dialogBackgrounds2Layout.setHorizontalGroup(
@@ -218,22 +152,21 @@ public final class Frmmain extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialogBackgrounds2Layout.createSequentialGroup()
                 .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblruangan)
+                            .addComponent(lblnama)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dialogBackgrounds2Layout.createSequentialGroup()
                         .addGap(513, 513, 513)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(70, 70, 70)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblruangan)
-                            .addComponent(lblnama))))
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
         dialogBackgrounds2Layout.setVerticalGroup(
@@ -250,9 +183,9 @@ public final class Frmmain extends javax.swing.JFrame {
                 .addComponent(lblnama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblruangan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addGap(52, 52, 52)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(496, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(43, 152, 240));
@@ -407,25 +340,6 @@ public final class Frmmain extends javax.swing.JFrame {
         new Frmakun(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void datatableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datatableKeyReleased
-        // TODO add your handling code here:
-        GetData_View();
-    }//GEN-LAST:event_datatableKeyReleased
-
-    private void datatableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_datatableKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_datatableKeyPressed
-
-    private void datatableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datatableMouseClicked
-        // TODO add your handling code here:
-        GetData_View();
-    }//GEN-LAST:event_datatableMouseClicked
-
-    private void datatableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_datatableMouseReleased
-        // TODO add your handling code here:
-        GetData_View();
-    }//GEN-LAST:event_datatableMouseReleased
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         new FrmloginPetugas().setVisible(true);
@@ -493,12 +407,12 @@ public final class Frmmain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable datatable;
     private rsgm.ui.DialogBackgrounds dialogBackgrounds2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -513,7 +427,6 @@ public final class Frmmain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblnama;
     private javax.swing.JLabel lblruangan;
     // End of variables declaration//GEN-END:variables
