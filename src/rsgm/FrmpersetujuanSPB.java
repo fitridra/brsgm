@@ -375,7 +375,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
             try {
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_spb_detail.id_spb_detail, tb_barang.nm_barang as nama, tb_permintaan_detail.stok_ruangan, tb_permintaan_detail.jumlah_diminta,tb_permintaan_detail.jumlah_disetujui, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan_detail='" + row_id + "'");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_spb_detail.id_spb_detail, tb_barang.nm_barang as nama, tb_spb_detail.p_managerk, tb_spb_detail.p_direkturrs, tb_spb_detail.p_direkturpt FROM tb_spb_detail JOIN tb_barang ON tb_barang.id_barang = tb_spb_detail.id_spb_detail WHERE tb_spb_detail.id_spb_detail='" + row_id + "'");
                 if (sql.next()) {
                     lbl_action.setForeground(new Color(4, 149, 56));
                     lbl_action.setText("Persetujuan Data");
