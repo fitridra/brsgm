@@ -375,22 +375,22 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
             try {
                 Connection conn = konek.openkoneksi();
                 java.sql.Statement stm = conn.createStatement();
-                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_spb_detail.id_spb_detail, tb_barang.nm_barang as nama, tb_spb_detail.p_managerk, tb_spb_detail.p_direkturrs, tb_spb_detail.p_direkturpt FROM tb_spb_detail JOIN tb_barang ON tb_barang.id_barang = tb_spb_detail.id_spb_detail WHERE tb_spb_detail.id_spb_detail='" + row_id + "'");
+                java.sql.ResultSet sql = stm.executeQuery("SELECT tb_spb_detail.id_spb_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, tb_spb_detail.jumlah_harga, tb_permintaan_detail.keterangan, tb_spb_detail.p_managerk, tb_spb_detail.p_direkturrs FROM tb_spb_detail JOIN tb_barang ON tb_barang.id_barang = tb_spb_detail.id_barang JOIN tb_permintaan_detail ON tb_permintaan_detail.id_permintaan_detail = tb_spb_detail.id_permintaan_detail WHERE tb_spb_detail.id_spb_detail='" + row_id + "'");
                 if (sql.next()) {
                     lbl_action.setForeground(new Color(4, 149, 56));
                     lbl_action.setText("Persetujuan Data");
-                    txtid.setText(sql.getString("id_permintaan_detail"));
+                    txtid.setText(sql.getString("id_spb_detail"));
                     txtnama.setText(sql.getString("nama"));
                     if (null != PetugasSession.getU_role()) {
                         switch (PetugasSession.getU_role()) {
-                            case "manager":
-                                txtstatus.setSelectedItem(sql.getString("p_manager"));
+                            case "Manager":
+                                txtstatus.setSelectedItem(sql.getString("p_managerk"));
                                 break;
-                            case "direktur":
-                                txtstatus.setSelectedItem(sql.getString("p_direktur"));
+                            case "Direktur RS":
+                                txtstatus.setSelectedItem(sql.getString("p_direkturrs"));
                                 break;
-                            case "spi":
-                                txtstatus.setSelectedItem(sql.getString("p_spi"));
+                            case "Direktur PT":
+                                txtstatus.setSelectedItem(sql.getString("p_direkturpt"));
                                 break;
                             default:
                                 break;
@@ -406,6 +406,8 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(null, "Terdapat kesalahan id null!");
         }
+        
+        
     }//GEN-LAST:event_btneditActionPerformed
 
     private void txtnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamaActionPerformed
@@ -460,7 +462,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
         //menampilkan data database kedalam tabel
         try {
             Connection conn = konek.openkoneksi();
-            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, (tb_permintaan_detail.jumlah_disetujui*tb_barang.harga) as total, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" + kode + "'";
+            String sql = "SELECT tb_spb_detail.id_spb_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, tb_spb_detail.jumlah_harga, tb_permintaan_detail.keterangan, tb_spb_detail.p_managerk, tb_spb_detail.p_direkturrs FROM tb_spb_detail JOIN tb_barang ON tb_barang.id_barang = tb_spb_detail.id_barang JOIN tb_permintaan_detail ON tb_permintaan_detail.id_permintaan_detail = tb_spb_detail.id_permintaan_detail WHERE tb_spb_detail.id_spb='" + kode + "'";
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {

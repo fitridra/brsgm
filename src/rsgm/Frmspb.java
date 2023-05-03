@@ -368,7 +368,7 @@ public class Frmspb extends javax.swing.JDialog {
 //                sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
 //            }
 //            Integer.toString(sum);
-        String id;
+        String id, id_barang;
         Integer id_spb = 0, jumlah, not_found;
 
         DefaultTableModel model = (DefaultTableModel) datatable.getModel();
@@ -405,6 +405,7 @@ public class Frmspb extends javax.swing.JDialog {
             for (int i = 0; i < rowCount; i++) {
                 not_found = 0;
                 id = (datatable.getModel().getValueAt(i, 0).toString());
+                id_barang = (datatable.getModel().getValueAt(i, 10).toString());
                 jumlah = Integer.valueOf((String) datatable.getModel().getValueAt(i, 6));
 
                 if (not_found == 0) {
@@ -413,7 +414,7 @@ public class Frmspb extends javax.swing.JDialog {
                     try {
                         Connection conn = konek.openkoneksi();
                         java.sql.Statement stm = conn.createStatement();
-                        stm.executeUpdate("INSERT INTO tb_spb_detail(id_permintaan_detail, id_spb, jumlah_harga) VALUES ('" + id + "', '" + id_spb + "', '" + jumlah + "')");
+                        stm.executeUpdate("INSERT INTO tb_spb_detail(id_permintaan_detail, id_barang, id_spb, jumlah_harga) VALUES ('" + id + "', '" + id_barang + "', '" + id_spb + "', '" + jumlah + "')");
                         konek.closekoneksi();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, "Error " + e);
@@ -527,11 +528,12 @@ public class Frmspb extends javax.swing.JDialog {
         tabel.addColumn("Keterangan");
         tabel.addColumn("Manager");
         tabel.addColumn("Direktur");
+        tabel.addColumn("");
 
         //menampilkan data database kedalam tabel
         try {
             Connection conn = konek.openkoneksi();
-            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, (tb_permintaan_detail.jumlah_disetujui*tb_barang.harga) as total, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" + kode + "' AND tb_permintaan_detail.p_manager='" + "Setuju" + "' AND tb_permintaan_detail.p_direktur='" + "Setuju" + "'";
+            String sql = "SELECT tb_permintaan_detail.id_permintaan_detail, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, (tb_permintaan_detail.jumlah_disetujui*tb_barang.harga) as total, tb_permintaan_detail.keterangan, tb_permintaan_detail.p_manager, tb_permintaan_detail.p_direktur, tb_permintaan_detail.id_barang FROM tb_permintaan_detail JOIN tb_barang ON tb_barang.id_barang = tb_permintaan_detail.id_barang WHERE tb_permintaan_detail.id_permintaan='" + kode + "' AND tb_permintaan_detail.p_manager='" + "Setuju" + "' AND tb_permintaan_detail.p_direktur='" + "Setuju" + "'";
             java.sql.Statement stm = conn.createStatement();
             java.sql.ResultSet res = stm.executeQuery(sql);
             while (res.next()) {
@@ -541,7 +543,8 @@ public class Frmspb extends javax.swing.JDialog {
                     res.getString(7),
                     res.getString(8),
                     res.getString(9),
-                    res.getString(10)});
+                    res.getString(10),
+                    res.getString(11)});
             }
             datatable.setModel(tabel);
             int sum = 0;

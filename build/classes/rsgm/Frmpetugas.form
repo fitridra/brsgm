@@ -295,11 +295,12 @@
         <Component class="javax.swing.JComboBox" name="txtrole">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="petugas"/>
-                <StringItem index="1" value="manager"/>
-                <StringItem index="2" value="direktur"/>
-                <StringItem index="3" value="spi"/>
+              <StringArray count="5">
+                <StringItem index="0" value="Petugas"/>
+                <StringItem index="1" value="Manager"/>
+                <StringItem index="2" value="Direktur RS"/>
+                <StringItem index="3" value="Direktur PT"/>
+                <StringItem index="4" value="SPI"/>
               </StringArray>
             </Property>
           </Properties>

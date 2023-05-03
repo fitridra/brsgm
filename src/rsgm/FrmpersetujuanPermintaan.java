@@ -407,7 +407,21 @@ public class FrmpersetujuanPermintaan extends javax.swing.JDialog {
                     txtid.setText(sql.getString("id_permintaan_detail"));
                     txtnama.setText(sql.getString("nama"));
                     txtjumlah.setText(sql.getString("jumlah_disetujui"));
-                    txtstatus.setSelectedItem(sql.getString("p_manager"));
+                    if (null != PetugasSession.getU_role()) {
+                        switch (PetugasSession.getU_role()) {
+                            case "Manager":
+                                txtstatus.setSelectedItem(sql.getString("p_manager"));
+                                break;
+                            case "Direktur RS":
+                                txtstatus.setSelectedItem(sql.getString("p_direktur"));
+                                break;
+                            case "SPI":
+                                txtstatus.setSelectedItem(sql.getString("p_spi"));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
                 konek.closekoneksi();
             } catch (SQLException e) {
@@ -534,7 +548,7 @@ public class FrmpersetujuanPermintaan extends javax.swing.JDialog {
 
         if (null != PetugasSession.getU_role())
             switch (PetugasSession.getU_role()) {
-                case "manager":
+                case "Manager":
                     if (!"".equals(row_txtnama) && !"".equals(row_txtjumlah) && !"".equals(row_txtstatus)) {
                         if (c_kode == 0 || row_id.equals(row_id)) {
                             try {
@@ -557,7 +571,7 @@ public class FrmpersetujuanPermintaan extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
                     }
                     break;
-                case "direktur":
+                case "Direktur RS":
                     if (!"".equals(row_txtnama) && !"".equals(row_txtjumlah) && !"".equals(row_txtstatus)) {
                         if (c_kode == 0 || row_id.equals(row_id)) {
                             try {
@@ -580,7 +594,7 @@ public class FrmpersetujuanPermintaan extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
                     }
                     break;
-                case "spi":
+                case "SPI":
                     if (!"".equals(row_txtnama) && !"".equals(row_txtjumlah) && !"".equals(row_txtstatus)) {
                         if (c_kode == 0 || row_id.equals(row_id)) {
                             try {
