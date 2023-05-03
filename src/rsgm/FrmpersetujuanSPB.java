@@ -115,6 +115,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
         cmbid_permintaan = new javax.swing.JComboBox<>();
         btnok = new javax.swing.JButton();
         txtid_permintaan = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RS GADING MEDIKA  :: Persetujuan SPB");
@@ -277,7 +278,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
         );
 
         lblcount_rows.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
-        lblcount_rows.setText("Total");
+        lblcount_rows.setText("Total = Rp. ");
 
         cmbid_permintaan.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -313,7 +314,9 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(lblcount_rows, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblcount_rows, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -358,11 +361,17 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
                                 .addGap(28, 28, 28))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblcount_rows)
-                    .addComponent(jLabel7)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblcount_rows)
+                            .addComponent(jLabel7)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 3, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -479,7 +488,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
             for (int i = 0; i < datatable.getRowCount(); i++) {
                 sum = sum + Integer.parseInt(datatable.getValueAt(i, 6).toString());
             }
-            lblcount_rows.setText(Integer.toString(sum));
+            jLabel2.setText(Integer.toString(sum));
             konek.closekoneksi();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error " + e);
@@ -775,6 +784,7 @@ public class FrmpersetujuanSPB extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbid_permintaan;
     private javax.swing.JTable datatable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;

@@ -155,6 +155,9 @@ public class Frmpermintaan extends javax.swing.JDialog {
         txtnm_barang = new javax.swing.JTextField();
         txtid_barang = new javax.swing.JTextField();
         txtsatuan = new javax.swing.JTextField();
+        lblcount_rows = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtharga = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RS Gading Medika :: Permintaan");
@@ -209,7 +212,7 @@ public class Frmpermintaan extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID Barang", "Nama Barang", "Stok", "Satuan", "Jumlah", "Keterangan"
+                "ID Barang", "Nama Barang", "Stok", "Satuan", "Jumlah Barang", "Harga", "Keterangan", "Total"
             }
         ));
         datatable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -387,6 +390,9 @@ public class Frmpermintaan extends javax.swing.JDialog {
             }
         });
 
+        lblcount_rows.setFont(new java.awt.Font("Lucida Grande", 0, 12)); // NOI18N
+        lblcount_rows.setText("Total = Rp. ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -414,7 +420,9 @@ public class Frmpermintaan extends javax.swing.JDialog {
                             .addComponent(txtnm_petugas, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtnm_ruangan, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtid_petugas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtid_petugas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtnm_barang, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
@@ -426,6 +434,12 @@ public class Frmpermintaan extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(txttgl, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lblcount_rows, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,14 +458,19 @@ public class Frmpermintaan extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtnm_ruangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnm_ruangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtharga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsave, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblcount_rows, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addContainerGap(7, Short.MAX_VALUE))
         );
@@ -466,22 +485,22 @@ public class Frmpermintaan extends javax.swing.JDialog {
         String data3 = txtstok.getText();
         String data4 = txtsatuan.getText();
         String data5 = txtjumlah_barang.getText();
-        String data6 = txtketerangan.getText();
+        String data6 = txtharga.getText();
+        String data7 = txtketerangan.getText();
 
         String[] nama_kategori = cmbid_barang.getSelectedItem().toString().split("\\s+");
         String kode = nama_kategori[0];
 
         Integer same_kode = 0;
-        DefaultTableModel model2 = (DefaultTableModel) datatable.getModel();
-        int rowCount = model2.getRowCount();
-        for (int i = 0; i < rowCount; i++) {
+        for (int i = 0; i < datatable.getRowCount(); i++) {
             if (kode.equals(datatable.getModel().getValueAt(i, 1).toString())) {
                 same_kode = 1;
             }
         }
 
-        if (!(data1.equals("")) && !(data2.equals("")) && !(data3.equals("")) && !(data4.equals("")) && !(data5.equals("")) && !(data6.equals(""))) {
-            Object[] row = {data1, data2, data3, data4, data5, data6};
+        if (!(data1.equals("")) && !(data2.equals("")) && !(data3.equals("")) && !(data4.equals("")) && !(data5.equals("")) && !(data6.equals("")) && !(data7.equals(""))) {
+            
+            Object[] row = {data1, data2, data3, data4, data5, data6, data7, (Integer.parseInt(data5)*Integer.parseInt(data6))};
             DefaultTableModel model = (DefaultTableModel) datatable.getModel();
             model.addRow(row);
             txtid_barang.setText("");
@@ -489,6 +508,7 @@ public class Frmpermintaan extends javax.swing.JDialog {
             txtstok.setText("");
             txtsatuan.setText("");
             txtjumlah_barang.setText("");
+            txtharga.setText("");
             txtketerangan.setText("");
 
         } else if (same_kode != 0) {
@@ -497,6 +517,13 @@ public class Frmpermintaan extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Terdapat inputan yang kosong.");
             cmbid_barang.getSelectedItem();
         }
+
+        int sum = 0;
+        for (int i = 0; i < datatable.getRowCount(); i++) {
+            sum = sum + Integer.parseInt(datatable.getValueAt(i, 7).toString());
+        }
+
+        jLabel11.setText(Integer.toString(sum));
     }//GEN-LAST:event_btnokActionPerformed
 
     private void cmbid_barangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbid_barangItemStateChanged
@@ -524,12 +551,15 @@ public class Frmpermintaan extends javax.swing.JDialog {
                         txtid_barang.setText(sql.getString("id_barang"));
                         txtsatuan.setText(sql.getString("satuan"));
                         txtnm_barang.setText(sql.getString("nm_barang"));
+                        txtharga.setText(sql.getString("harga"));
                     }
                     konek.closekoneksi();
                 } catch (SQLException e) {
                     JOptionPane.showMessageDialog(null, "Error " + e);
+
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(Frmpermintaan.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Frmpermintaan.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         } else {
@@ -560,8 +590,10 @@ public class Frmpermintaan extends javax.swing.JDialog {
                 konek.closekoneksi();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error " + e);
+
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Frmbarang.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
             try {
@@ -573,8 +605,10 @@ public class Frmpermintaan extends javax.swing.JDialog {
                 konek.closekoneksi();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error " + e);
+
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Frmbarang.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
             for (int i = 0; i < rowCount; i++) {
@@ -594,8 +628,10 @@ public class Frmpermintaan extends javax.swing.JDialog {
                         konek.closekoneksi();
                     } catch (SQLException e) {
                         JOptionPane.showMessageDialog(null, "Error " + e);
+
                     } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Frmbarang.class
+                                .getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Sistem tidak menemukan barang " + id, "Barang Gagal Disimpan", JOptionPane.ERROR_MESSAGE);
@@ -705,16 +741,24 @@ public class Frmpermintaan extends javax.swing.JDialog {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Frmpermintaan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frmpermintaan.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Frmpermintaan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frmpermintaan.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Frmpermintaan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frmpermintaan.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Frmpermintaan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frmpermintaan.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -747,6 +791,7 @@ public class Frmpermintaan extends javax.swing.JDialog {
     private javax.swing.JTable datatable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -758,6 +803,8 @@ public class Frmpermintaan extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblcount_rows;
+    private javax.swing.JTextField txtharga;
     private javax.swing.JTextField txtid_barang;
     private javax.swing.JTextField txtid_petugas;
     private javax.swing.JTextField txtid_selected;
