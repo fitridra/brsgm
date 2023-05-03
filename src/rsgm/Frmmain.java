@@ -85,6 +85,9 @@ public final class Frmmain extends javax.swing.JFrame {
         lblruangan = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        persetujuanpermintaan = new javax.swing.JLabel();
+        persetujuanspb = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -143,7 +146,26 @@ public final class Frmmain extends javax.swing.JFrame {
         });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/file.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setText("Riwayat Permintaan");
+
+        persetujuanpermintaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/file.png"))); // NOI18N
+        persetujuanpermintaan.setText("Persetujuan Permintaan");
+        persetujuanpermintaan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                persetujuanpermintaanMouseClicked(evt);
+            }
+        });
+
+        persetujuanspb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/file.png"))); // NOI18N
+        persetujuanspb.setText("Persetujuan SPB");
+        persetujuanspb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                persetujuanspbMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsgm/img/file.png"))); // NOI18N
+        jLabel4.setText("Riwayat SPB");
 
         javax.swing.GroupLayout dialogBackgrounds2Layout = new javax.swing.GroupLayout(dialogBackgrounds2);
         dialogBackgrounds2.setLayout(dialogBackgrounds2Layout);
@@ -156,18 +178,33 @@ public final class Frmmain extends javax.swing.JFrame {
                         .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblruangan)
                             .addComponent(lblnama)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dialogBackgrounds2Layout.createSequentialGroup()
-                        .addGap(513, 513, 513)
+                    .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
                         .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dialogBackgrounds2Layout.createSequentialGroup()
+                                .addGap(513, 513, 513)
+                                .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(persetujuanspb, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(45, 45, 45)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(70, 70, 70)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
+                        .addComponent(jButton3)
+                        .addGap(68, 68, 68)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
+            .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
+                    .addGap(523, 523, 523)
+                    .addComponent(persetujuanpermintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(592, Short.MAX_VALUE)))
         );
         dialogBackgrounds2Layout.setVerticalGroup(
             dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,9 +220,18 @@ public final class Frmmain extends javax.swing.JFrame {
                 .addComponent(lblnama)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblruangan)
-                .addGap(52, 52, 52)
+                .addGap(61, 61, 61)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(496, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(persetujuanspb, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(420, Short.MAX_VALUE))
+            .addGroup(dialogBackgrounds2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(dialogBackgrounds2Layout.createSequentialGroup()
+                    .addGap(236, 236, 236)
+                    .addComponent(persetujuanpermintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(489, Short.MAX_VALUE)))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(43, 152, 240));
@@ -371,6 +417,16 @@ public final class Frmmain extends javax.swing.JFrame {
         new FrmpersetujuanSPB(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void persetujuanpermintaanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_persetujuanpermintaanMouseClicked
+        // TODO add your handling code here:
+        new FrmpersetujuanPermintaan(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_persetujuanpermintaanMouseClicked
+
+    private void persetujuanspbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_persetujuanspbMouseClicked
+        // TODO add your handling code here:
+        new FrmpersetujuanSPB(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_persetujuanspbMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -413,6 +469,7 @@ public final class Frmmain extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -429,5 +486,7 @@ public final class Frmmain extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JLabel lblnama;
     private javax.swing.JLabel lblruangan;
+    private javax.swing.JLabel persetujuanpermintaan;
+    private javax.swing.JLabel persetujuanspb;
     // End of variables declaration//GEN-END:variables
 }
