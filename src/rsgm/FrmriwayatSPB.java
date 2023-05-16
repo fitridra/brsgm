@@ -11,6 +11,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -34,7 +37,7 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initUI();
-
+        GetData();
         txtid_permintaan.hide();
         SelectPermintaan();
     }
@@ -66,6 +69,44 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Error " + e);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Frmbarang.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void GetData() {
+        DefaultTableModel tabel = new DefaultTableModel();
+        tabel.addColumn("ID SPB");
+        tabel.addColumn("Nama Barang");
+        tabel.addColumn("Stok");
+        tabel.addColumn("Satuan");
+        tabel.addColumn("Jumlah Barang");
+        tabel.addColumn("Estimasi Harga");
+        tabel.addColumn("Jumlah");
+        tabel.addColumn("Keterangan");
+        tabel.addColumn("Manager");
+        tabel.addColumn("Direktur");
+
+        //menampilkan data database kedalam tabel
+        try {
+            Connection conn = konek.openkoneksi();
+            String sql = "SELECT tb_spb_detail.id_spb, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, tb_spb_detail.jumlah_harga, tb_permintaan_detail.keterangan, tb_spb_detail.p_managerk, tb_spb_detail.p_direkturrs FROM tb_spb_detail JOIN tb_barang ON tb_barang.id_barang = tb_spb_detail.id_barang JOIN tb_permintaan_detail ON tb_permintaan_detail.id_permintaan_detail = tb_spb_detail.id_permintaan_detail";
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                tabel.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), res.getString(4),
+                    res.getString(5),
+                    res.getString(6),
+                    res.getString(7),
+                    res.getString(8),
+                    res.getString(9),
+                    res.getString(10)});
+            }
+            datatable.setModel(tabel);
+
+            konek.closekoneksi();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error " + e);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmriwayatSPB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -104,6 +145,10 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("RS GADING MEDIKA  :: Persetujuan SPB");
@@ -208,33 +253,34 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Setuju", "Tidak Setuju", "Pending" }));
 
+        jLabel4.setText("Tanggal");
+
+        jDateChooser1.setDateFormatString("yyyy-MM-dd");
+
+        jButton1.setText("Cek");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnok)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
                         .addComponent(lblcount_rows)
                         .addGap(5, 5, 5)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,7 +288,26 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                        .addGap(20, 20, 20))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnok)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 21, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,14 +315,20 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cmbid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(btnok)
-                        .addComponent(jLabel3)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmbid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(btnok)
+                            .addComponent(jLabel3)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jButton1)))
+                .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(273, 273, 273)
@@ -271,8 +342,10 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel7)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblcount_rows))
-                        .addGap(0, 2, Short.MAX_VALUE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblcount_rows)
+                                .addComponent(txtid_permintaan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -349,7 +422,7 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error " + e);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrmpersetujuanPermintaan.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FrmriwayatSPB.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_btnokActionPerformed
@@ -372,6 +445,45 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
         // TODO add your handling code here:
         GetData_View();
     }//GEN-LAST:event_datatableMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel tabel = new DefaultTableModel();
+        tabel.addColumn("ID SPB");
+        tabel.addColumn("Nama Barang");
+        tabel.addColumn("Stok");
+        tabel.addColumn("Satuan");
+        tabel.addColumn("Jumlah Barang");
+        tabel.addColumn("Estimasi Harga");
+        tabel.addColumn("Jumlah");
+        tabel.addColumn("Keterangan");
+        tabel.addColumn("Tanggal");
+        tabel.addColumn("Manager");
+        tabel.addColumn("Direktur");
+
+        try {
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            Date date = new Date();
+            Connection conn = konek.openkoneksi();
+            String sql = "SELECT tb_spb_detail.id_spb, tb_barang.nm_barang as nama, tb_barang.stok_gudang as stok, tb_barang.satuan as satuan,tb_permintaan_detail.jumlah_disetujui, tb_barang.harga as harga, tb_spb_detail.jumlah_harga, tb_permintaan_detail.keterangan, tb_spb.tanggal as tanggal, tb_spb_detail.p_managerk, tb_spb_detail.p_direkturrs FROM tb_spb_detail JOIN tb_barang ON tb_barang.id_barang = tb_spb_detail.id_barang JOIN tb_permintaan_detail ON tb_permintaan_detail.id_permintaan_detail = tb_spb_detail.id_permintaan_detail JOIN tb_spb ON tb_spb.id_spb = tb_spb_detail.id_spb WHERE tb_spb.tanggal LIKE '%"+jDateChooser1+"%'";
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res = stm.executeQuery(sql);
+            while (res.next()) {
+                tabel.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), res.getString(4),
+                    res.getString(5),
+                    res.getString(6),
+                    res.getString(7),
+                    res.getString(8),
+                    res.getString(9),
+                    res.getString(10)});
+            }
+            datatable.setModel(tabel);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmriwayatSPB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -928,10 +1040,14 @@ public class FrmriwayatSPB extends javax.swing.JDialog {
     private javax.swing.JButton btnok;
     private javax.swing.JComboBox<String> cmbid_permintaan;
     private javax.swing.JTable datatable;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
